@@ -1,0 +1,584 @@
+Package: brook
+Priority: optional
+Section: devel
+Installed-Size: 19576
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 20260101-1~debian.11~bullseye
+Filename: pool/main/b/brook/brook_20260101-1~debian.11~bullseye_arm64.deb
+Size: 5331028
+MD5sum: 2f0d2cbdab02aacba47d2d612c9ea8b2
+SHA1: d08579298e44e6bad3382a837bcdfe0196d3c5f6
+SHA256: b17cfb70fbd3f056b4df374723cce49cf2d89dfe3b94042a302606b59d6b901a
+SHA512: 2f25e1e7ad3bc039d5cf047e7bf841d797842e56c639557151646e3b71e72ce8c80d77fa9213f2efbba9af09a352da6cec0052a5f6324b3fea2dbaba89f86579
+Description: A cross-platform programmable network tool.
+Homepage: https://github.com/txthinking/brook
+
+Package: brook
+Priority: optional
+Section: devel
+Installed-Size: 19755
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 20250808-1~debian.11~bullseye
+Filename: pool/main/b/brook/brook_20250808-1~debian.11~bullseye_arm64.deb
+Size: 5305052
+MD5sum: ede38d2020843b1736839c924e43f395
+SHA1: a5f4f9aeab3bddc8bfc17b852b984af66e925a22
+SHA256: f164eaec924c82f1fb412507033499b269166de5c6885a0ac602208ff7b975d0
+SHA512: dc8a2799925c6749e134aafae7867556e176e6fb75bcc5031fe6ff8a38abf5e116690be1ba4499fe399b28e1e89548f790841e3185534c18a2bfb11534b40b35
+Description: A cross-platform programmable network tool.
+Homepage: https://github.com/txthinking/brook
+
+Package: caddy
+Priority: optional
+Section: net
+Installed-Size: 56214
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 2.11.4-2~debian.11~bullseye
+Depends: tzdata, ca-certificates
+Filename: pool/main/c/caddy/caddy_2.11.4-2~debian.11~bullseye_arm64.deb
+Size: 12429880
+MD5sum: fb8b503e13d8a2e327f0e7eccbd43155
+SHA1: e17f2d640f65005857a56035b356c95c1ebc6044
+SHA256: 5c2ccc6255952d53c2ce01a06a4194d2df7d8fc18085cb1345b92037adebda9c
+SHA512: 8bf49077825f2620ae780613a43c6a5d94b40aaaff1bcedbf8bd8895939d6f32e70f5470450ab257e22d4d4819696c3de05e5af9be8cdb305e55c798c279b5db
+Description: Caddy is a Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS.
+Homepage: https://github.com/caddyserver/caddy
+
+Package: caddy
+Priority: optional
+Section: net
+Installed-Size: 56214
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 2.11.4-1~debian.11~bullseye
+Depends: tzdata, ca-certificates
+Filename: pool/main/c/caddy/caddy_2.11.4-1~debian.11~bullseye_arm64.deb
+Size: 12425520
+MD5sum: 3e3bc5ca0c51bea1c0a5193485ef044c
+SHA1: a58c58e9f0d50aab5327dde9a384605b8cc40f4c
+SHA256: 9f0821736282964f44b4f7d682d8ad90bec771ec3e43ed03529882a64190f36c
+SHA512: ad4ec650959445b4235fc730c03f45e151159756ad2c918da6dc01e6f4a7f7bd979ec6f27f12c91132c3d41f9115f11d1f64b963029950ee2163c64bda3ba633
+Description: Caddy is a Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS.
+Homepage: https://github.com/caddyserver/caddy
+
+Package: go-shadowsocks2
+Priority: optional
+Section: net
+Installed-Size: 2376
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 0.1.5-1~debian.11~bullseye
+Depends: libc6 (>= 2.17)
+Filename: pool/main/g/go-shadowsocks2/go-shadowsocks2_0.1.5-1~debian.11~bullseye_arm64.deb
+Size: 745604
+MD5sum: 195180f7bb6b0155f9d008d9d7d06a2f
+SHA1: a5f0745700d026779e797e46517703690defce17
+SHA256: 6cb3d515c32e02e089996ad500b47856f5ad3f5cda1dd7068b514911906d92e4
+SHA512: 38e65f137a4acb2c84df5fdca70d673ca599e9edfbbde96a4fbd2adced610c248809b292ee9312f4d04a9ed898430228a9e184ac7125435e3e54d2462493912b
+Description: Modern Shadowsocks in Go
+ A fresh implementation of Shadowsocks in Go.
+Homepage: https://github.com/shadowsocks/go-shadowsocks2
+
+Package: hysteria
+Priority: optional
+Section: net
+Installed-Size: 21000
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 2.12.2-1~debian.11~bullseye
+Depends: tzdata, ca-certificates
+Filename: pool/main/h/hysteria/hysteria_2.12.2-1~debian.11~bullseye_arm64.deb
+Size: 5461412
+MD5sum: 9415903ffb89d9a9f92dc27463b2126a
+SHA1: 97ea12301cca54b7608a3904b8d0bfbd50c451b1
+SHA256: 44a772267bb2a2f021e3831d4aa8d9a81cff65413d878f222e69124b15e0fd3b
+SHA512: f19399393df3ed8f98aceb1088e90ff5d317786a9bc275f22ed9a89585a06d6de9e725216e8b5bff392726b07c53cd5d1d8a9b5dd9965fa649ec4ee5b25c82c3
+Description: Hysteria is a powerful, lightning fast and censorship resistant proxy.
+Homepage: https://github.com/apernet/hysteria
+
+Package: hysteria
+Priority: optional
+Section: net
+Installed-Size: 20936
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 2.12.1-1~debian.11~bullseye
+Depends: tzdata, ca-certificates
+Filename: pool/main/h/hysteria/hysteria_2.12.1-1~debian.11~bullseye_arm64.deb
+Size: 5451232
+MD5sum: ba5f6888e1e5e1cda511609ffea0657c
+SHA1: 889a976a61d21519730c213be4ca40dc8ff8c742
+SHA256: 63244cca725c718c536af8cf13d4e6c5f8ada03bdf5b498164756a273b10f75e
+SHA512: cc3cd67c5f21b93c9463b66055b2991cacdecdb90a0f91fd880bb783164ffe7213dcd759a28fee2c06e569b23987fe50b771045af00cb5a1b7668b6962097bc9
+Description: Hysteria is a powerful, lightning fast and censorship resistant proxy.
+Homepage: https://github.com/apernet/hysteria
+
+Package: kcptun
+Priority: optional
+Section: net
+Installed-Size: 21997
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 20260101-1~debian.11~bullseye
+Filename: pool/main/k/kcptun/kcptun_20260101-1~debian.11~bullseye_arm64.deb
+Size: 6208264
+MD5sum: d4baef40c3d7f881cff781df1d6b1d9c
+SHA1: a7d736473930826d2b9dbd26edd374cfebf013c2
+SHA256: 98dbbaa4e456945dc6cf59e42d3406748b3a048981a8bcd9431ff04aceddd055
+SHA512: 0fdac90217d9df03c8b1f0ac0298d51f4fa02e1ea13a6d89a893bba92c65e81ee0130f1741f627f18dde1a45a8a1bbc9784d1570c4be243db7f19dd68c43147a
+Description: A Stable & Secure Tunnel based on KCP with N:M multiplexing and FEC.
+Homepage: https://github.com/xtaci/kcptun
+
+Package: kcptun
+Priority: optional
+Section: net
+Installed-Size: 21995
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 20251219-1~debian.11~bullseye
+Filename: pool/main/k/kcptun/kcptun_20251219-1~debian.11~bullseye_arm64.deb
+Size: 6203696
+MD5sum: 4a4675ae8729ea8b4b08ae9eae81fae5
+SHA1: 5a45738742801005654da100dd0964e06ab39d63
+SHA256: 1056ab3d660b8f4b68c8205d8e13766e0b5dd8f480b98e9ff76f13bf3520b1ef
+SHA512: 0f72a97be93b72d385eb2503bdaecc96c816fd2ed46b1dfa1eb7b1330f7e851f221efd4b7624ccfeb3ca36588e1a7b8947b15d3ae2504ee1caa92cbc94666c8f
+Description: A Stable & Secure Tunnel based on KCP with N:M multiplexing and FEC.
+Homepage: https://github.com/xtaci/kcptun
+
+Package: libshadowsocks-libev
+Priority: optional
+Section: libs
+Installed-Size: 183
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Source: shadowsocks-libev
+Version: 3.3.6-2~debian.11~bullseye
+Replaces: libshadowsocks-libev1
+Breaks: libshadowsocks-libev1
+Filename: pool/main/s/shadowsocks-libev/libshadowsocks-libev_3.3.6-2~debian.11~bullseye_arm64.deb
+Size: 60140
+MD5sum: 6e5d8f65d1b1afc3227cac740d1ee066
+SHA1: d834b490293c156a501a543bbc3fbc4d62320346
+SHA256: 404b5f13c094ae352ede279257d5ddd8671de33dc31f3029ef75f3bd6caf9fbd
+SHA512: 4976faa25b7bd28f4b0df43a73175ada94402e5a923f51ced617cce877e23b7da6f49c2e03b05fcb4b18fc8037a76877de8efe0b0c8e4457be089900af80cfdb
+Description: lightweight and secure socks5 proxy (shared library)
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+ .
+ This package provides shared libraries.
+Homepage: https://www.shadowsocks.org
+Multi-Arch: same
+
+Package: libshadowsocks-libev
+Priority: optional
+Section: libs
+Installed-Size: 139
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Source: shadowsocks-libev
+Version: 3.3.5-12~debian.11~bullseye
+Replaces: libshadowsocks-libev1
+Breaks: libshadowsocks-libev1
+Filename: pool/main/s/shadowsocks-libev/libshadowsocks-libev_3.3.5-12~debian.11~bullseye_arm64.deb
+Size: 44560
+MD5sum: 79a504b2e44daa07f0957272498513c5
+SHA1: 4bc506266df598e72ca4f1183cad228e540e0dd9
+SHA256: d3903973e3eaf34e02c95db53c5f01ac9dfdf38833ef441ef7983714b27dd558
+SHA512: 6fc4dc3c5de4d0558a86a9f316097fabdcab2d4514161c31077c9ed395edbf0dfe0a5180d69baac4fe7d5950b78bb13f5e16bb90fa3b1539a950947015dc1217
+Description: lightweight and secure socks5 proxy (shared library)
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+ .
+ This package provides shared libraries.
+Homepage: https://www.shadowsocks.org
+Multi-Arch: same
+
+Package: shadowsocks-libev
+Priority: optional
+Section: net
+Installed-Size: 1018
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 3.3.6-2~debian.11~bullseye
+Depends: libcap2-bin, lsb-base (>= 3.0-6), libc-ares2 (>= 1.11.0~rc1), libc6 (>= 2.29), libev4 (>= 1:4.04), libmbedcrypto3 (>= 2.13), libpcre2-8-0 (>= 10.22), libsodium23 (>= 1.0.12)
+Filename: pool/main/s/shadowsocks-libev/shadowsocks-libev_3.3.6-2~debian.11~bullseye_arm64.deb
+Size: 191412
+MD5sum: 0f2c658c7f1f6bf8f6845fc97b9f9426
+SHA1: 08d41331563728077b818c112d976389661fd6fb
+SHA256: 3e9c6c7dce850f7ca90a66e5f7b68e9969304d0d15f266e4a410f54c32771030
+SHA512: ca83993839b64b5aeb214d32e8abbe905029e1fa07e0846e186a13a276e32839cdf21f852e6304573acbfaa38de4fce2f35eddc69ecb8fb4617a8d87287eb8df
+Description: lightweight and secure socks5 proxy
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+Homepage: https://www.shadowsocks.org
+
+Package: shadowsocks-libev
+Priority: optional
+Section: net
+Installed-Size: 789
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 3.3.5-12~debian.11~bullseye
+Depends: libcap2-bin, lsb-base, libbloom1, libc-ares2, libc6, libcork16, libcorkipset1, libev4, libjsonparser1.1, libmbedtls-dev, libpcre3, libsodium23
+Filename: pool/main/s/shadowsocks-libev/shadowsocks-libev_3.3.5-12~debian.11~bullseye_arm64.deb
+Size: 156540
+MD5sum: 58f72e5f3475304f4cc956adab0af3ae
+SHA1: 2968b921a39e2ad55a838e646819b3d4419ea37d
+SHA256: da3313828f934ed62cf42485863dca4e5ee47ab3843523e5f5739009537467bb
+SHA512: e37a6a3454660350d070762bdbb4cfffeba0d7be12e8c976c7922666fc69a61a85cde0e70be83b374bc0939596906d7820f4c38267e80285b0ba2095bc7cc486
+Description: lightweight and secure socks5 proxy
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+Homepage: https://www.shadowsocks.org
+
+Package: shadowsocks-libev-dev
+Priority: optional
+Section: libdevel
+Installed-Size: 17
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Source: shadowsocks-libev
+Version: 3.3.6-2~debian.11~bullseye
+Depends: libshadowsocks-libev (= 3.3.6-2~debian.11~bullseye)
+Filename: pool/main/s/shadowsocks-libev/shadowsocks-libev-dev_3.3.6-2~debian.11~bullseye_arm64.deb
+Size: 3176
+MD5sum: 680921d15a105c5275b35491c890ec28
+SHA1: 366e7b0d6cc38d0cd5f1b639eae719ca25104e28
+SHA256: bd0f6b3165c5a2af22aaeafbc538b2781754ba327c44a08f5d4eea8304e03889
+SHA512: ade282fcf9a9b13bc5abce2068a7a3891085e8062a2e746ed50ff6d60b14498916958f81abd7fb01e67604266e5930c0e5242b49b3d25ea67f34c7a5f1780922
+Description: lightweight and secure socks5 proxy (development files)
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+ .
+ This package provides C header files for the libraries.
+Homepage: https://www.shadowsocks.org
+Multi-Arch: same
+
+Package: shadowsocks-libev-dev
+Priority: optional
+Section: libdevel
+Installed-Size: 17
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Source: shadowsocks-libev
+Version: 3.3.5-12~debian.11~bullseye
+Depends: libshadowsocks-libev (= 3.3.5-12~debian.11~bullseye)
+Filename: pool/main/s/shadowsocks-libev/shadowsocks-libev-dev_3.3.5-12~debian.11~bullseye_arm64.deb
+Size: 3184
+MD5sum: 01de27d52d1d9ea262658dfead713633
+SHA1: 9b71d1ac18d88cfb0f53cb6162d5c028a72fe2c9
+SHA256: 8d4f5298fcae9a960e5f40b1e49980a0b1f7e898d0469b3db20a834750f4ec4c
+SHA512: dd551bcee79b35098aed6b9ef7f7e1e65ccc91b261d100db3c21c302191cafcf84305dd09b55778b9f7c9f762b675a542b1029213cb2989d63a045a84d0c721e
+Description: lightweight and secure socks5 proxy (development files)
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+ .
+ This package provides C header files for the libraries.
+Homepage: https://www.shadowsocks.org
+Multi-Arch: same
+
+Package: shadowsocks-qtun
+Priority: optional
+Section: net
+Installed-Size: 6581
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 0.3.0-1~debian.11~bullseye
+Depends: libc6 (>= 2.29), libgcc-s1 (>= 4.2)
+Conflicts: shadowsocks
+Filename: pool/main/s/shadowsocks-qtun/shadowsocks-qtun_0.3.0-1~debian.11~bullseye_arm64.deb
+Size: 1515848
+MD5sum: cc4df5e94c44181a32992736c59bebc4
+SHA1: 82c94f4f92235f6ffae10a8e9f976a4eb4259965
+SHA256: fb77118a4769b277fed8cde58d51b8dca4e60abe240fb04c6a914edee32fbe9d
+SHA512: 02c0a7fb558354e8451d937e2790c8d2baa5b5ae23f3081e53bf7e54bf2c950845c2cd7da946fab2b8be7c662e59a7649ce3b7734f99883c367ece8c4b593d66
+Description: A SIP003 plugin based on IETF-QUIC, designed as plugin server of shadowsocks
+Homepage: https://github.com/shadowsocks/qtun
+
+Package: shadowsocks-qtun
+Priority: optional
+Section: net
+Installed-Size: 6099
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 0.2.0-1~debian.11~bullseye
+Depends: libc6 (>= 2.29), libgcc-s1 (>= 4.2)
+Conflicts: shadowsocks
+Filename: pool/main/s/shadowsocks-qtun/shadowsocks-qtun_0.2.0-1~debian.11~bullseye_arm64.deb
+Size: 1369524
+MD5sum: 88dd3ca06e0d219edefdfccb2797c95c
+SHA1: 4f08bedf86e5e9b9ab0f8555b51a542f97ad2520
+SHA256: 215b4c2088ce396178870e0a2514842a197374cd5b3c58c07319c3c80d94bfb5
+SHA512: bc26456e5a12f3b6a42f3cffa426650f80cc19869b6b4e0fffe0c095bc6eaaa07d5d5be89ba0b45d7be174ced7cfa01b14e2e2ae65ce5a33058ca23120454702
+Description: A SIP003 plugin based on IETF-QUIC, designed as plugin server of shadowsocks
+Homepage: https://github.com/shadowsocks/qtun
+
+Package: shadowsocks-rust
+Priority: optional
+Section: net
+Installed-Size: 39244
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 1.25.0-1~debian.11~bullseye
+Depends: libc6 (>= 2.30), libgcc-s1 (>= 4.2), lsb-base
+Conflicts: shadowsocks
+Filename: pool/main/s/shadowsocks-rust/shadowsocks-rust_1.25.0-1~debian.11~bullseye_arm64.deb
+Size: 12118760
+MD5sum: f6b2fb5fe6421a80643c2455449a90f1
+SHA1: 4ed53f146f7146c65aedc55cc2e10f8722b0dd28
+SHA256: ef61711bc3735a2401526fd4673aa4446ab36e627b36512ecabace77122cc1e2
+SHA512: 35ee758d9635f6a4f3096b4e5e83c1cdb5c55b0dbc08b664f35e116f1734cf393c5cd4e8792c6a54f5d9d1263c5412a3d2cc8052acfc0f34bed606864abe7457
+Description: Rust port of shadowsocks, a secure socks5 proxy
+ Shadowsocks is a fast tunnel proxy that helps you bypass firewalls.
+ Shadowsocks-rust was inspired by Shadowsocks (in Python).
+ It's rewritten in rust.
+Homepage: https://github.com/shadowsocks/shadowsocks-rust
+
+Package: shadowsocks-rust
+Priority: optional
+Section: net
+Installed-Size: 33663
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 1.24.0-1~debian.11~bullseye
+Depends: libc6 (>= 2.30), libgcc-s1 (>= 4.2), lsb-base
+Conflicts: shadowsocks
+Filename: pool/main/s/shadowsocks-rust/shadowsocks-rust_1.24.0-1~debian.11~bullseye_arm64.deb
+Size: 7439512
+MD5sum: 1ee72de0a1e120ab411da1dedd5a8861
+SHA1: 32708deb098ac9a0343bad4cca5f77a95c909f3c
+SHA256: bc4e3458788aa145a01caa890a45b768864e663ed6191ae55aaa15690b1bf4c7
+SHA512: 8f8d1b336b03bb7bba9a3efe587df2405e897f76fade26b47f98e882d4243f267c418a6f059e94e7fba7a55cbbc228b17834adc23de0ed47ef670fb5d6f40ec0
+Description: Rust port of shadowsocks, a secure socks5 proxy
+ Shadowsocks is a fast tunnel proxy that helps you bypass firewalls.
+ Shadowsocks-rust was inspired by Shadowsocks (in Python).
+ It's rewritten in rust.
+Homepage: https://github.com/shadowsocks/shadowsocks-rust
+
+Package: shadowsocks-simple-obfs
+Priority: optional
+Section: net
+Installed-Size: 202
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 0.0.5-1~debian.11~bullseye
+Depends: libcap2-bin, libc6, libcork16, libev4
+Filename: pool/main/s/shadowsocks-simple-obfs/shadowsocks-simple-obfs_0.0.5-1~debian.11~bullseye_arm64.deb
+Size: 50160
+MD5sum: 59b02468279720d87253870253f7680f
+SHA1: 412d9c0f8a6b4a9e5690c461ae39cd906d9303d7
+SHA256: 8e915173cc917936d7b5e907e6980dc226e6293a3bab5f1818936f94949dca2a
+SHA512: e41bf301b30411f8e6177b50e21308b0f056d02197c1d62c6aad4cd245a78ad0b73f21da763295ac1ee7a73f1a599000d989f4ee09e86df02092481230e25b63
+Description: simple obfusacting plugin for shadowsocks
+ Simple-obfs is a simple obfusacting tool,
+ designed as plugin server/client of shadowsocks
+ .
+ Simple-obfs is written in pure C and takes advantage of
+ libev to achieve both high performance and low resource consumption.
+Homepage: https://github.com/shadowsocks/simple-obfs
+
+Package: sing-box
+Priority: optional
+Section: net
+Installed-Size: 71102
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 1.14.1-1~debian.11~bullseye
+Depends: tzdata, ca-certificates, dbus, polkitd
+Filename: pool/main/s/sing-box/sing-box_1.14.1-1~debian.11~bullseye_arm64.deb
+Size: 16392516
+MD5sum: 37585a7e5ea04053b6672a434f8f8590
+SHA1: bbad45be985d5e78bc87b59284b9ad6127f8db2c
+SHA256: e94702c684defb2aa2c1211d94538a0e8bf13f044f1e5a1a37b7e43028afc74f
+SHA512: a14b8953fa4614cf1d59491f17ad50b593920f912744ea464880c9224444048b8227d126c01ff5e10a8af6aba6c0d4c7b6989bfe97945f90367ac681ed27dcbb
+Description: sing-box is a universal proxy platform.
+Homepage: https://github.com/SagerNet/sing-box
+
+Package: sing-box
+Priority: optional
+Section: net
+Installed-Size: 71038
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 1.14.0-1~debian.11~bullseye
+Depends: tzdata, ca-certificates, dbus, polkitd
+Filename: pool/main/s/sing-box/sing-box_1.14.0-1~debian.11~bullseye_arm64.deb
+Size: 16376468
+MD5sum: fb6ab443d3346fe694844041aac93f1d
+SHA1: b9d8702d493d4e8c77a6282d99336da1e7228357
+SHA256: b28477146a1875f4f3fe2e902358b51c18f1050b02a475e965f6779b1fb4a35c
+SHA512: 4e7333db3831e33c01b3846772f791496189513957bcb1a1090efb2f2732d8906f7a987f2f5ce37cd2d0fe64abfc27edc286d84d449577002cee13568243b624
+Description: sing-box is a universal proxy platform.
+Homepage: https://github.com/SagerNet/sing-box
+
+Package: v2ray
+Priority: optional
+Section: net
+Installed-Size: 60593
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 5.53.0-1~debian.11~bullseye
+Filename: pool/main/v/v2ray/v2ray_5.53.0-1~debian.11~bullseye_arm64.deb
+Size: 11010204
+MD5sum: cb5d5543f3423ff85bbdbdd8b46a78ee
+SHA1: de6cfb13052c26ca4ba71c0b90926a263f9c13e3
+SHA256: 82f44007ec589b01eb6f8736243dcf62f34953dddd99a6dc5722dc8eaaa41585
+SHA512: dd9589bc75fabc71854aaf2d4c7e0af3a6fb07a0aca8c01120723f4a0f19ced10c2d36a73c30913474b0266fb181420627764e20c1d6c79e03c8fb400e31dd8b
+Description: Library platform for building proxies in golang
+ Project V2Ray is a set of network tools that help you to build your
+ own computer network. It secures your network connections and thus
+ protects your privacy.
+Homepage: https://github.com/v2fly/v2ray-core
+
+Package: v2ray
+Priority: optional
+Section: net
+Installed-Size: 60182
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 5.52.0-1~debian.11~bullseye
+Filename: pool/main/v/v2ray/v2ray_5.52.0-1~debian.11~bullseye_arm64.deb
+Size: 10897376
+MD5sum: 6fcac8739d773a3069f10b4eeccf8f62
+SHA1: dcaac9792167ef73e453a35feda3346b12e0d543
+SHA256: d94eaa1f259c2d6f81d599925bafaac9123d95842b24f1835612bd62caa7d753
+SHA512: 5e6e540c91305df799e974180400d9fa91c0ede0cc5f694c3fc3467ff6c2c162a6e910e5a79af25ae93c982dd01c65c9481eea14dda24f86dd772e8535d7b546
+Description: Library platform for building proxies in golang
+ Project V2Ray is a set of network tools that help you to build your
+ own computer network. It secures your network connections and thus
+ protects your privacy.
+Homepage: https://github.com/v2fly/v2ray-core
+
+Package: v2ray-plugin
+Priority: optional
+Section: devel
+Installed-Size: 15821
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 5.49.0-1~debian.11~bullseye
+Filename: pool/main/v/v2ray-plugin/v2ray-plugin_5.49.0-1~debian.11~bullseye_arm64.deb
+Size: 4211892
+MD5sum: 583996d0d450cff6805da1820b0dfff0
+SHA1: fa222feb00736ccc37ba7f0b513488f04d2c5ca8
+SHA256: e5fbf5ab4f012900b4ba1427c6e2c5cac628c596e3cb11aa504cf5ab7fdee953
+SHA512: 648fde96db6980281bb986878a24a62ceeed8e5797b648bde7c7aa59fcfaad2ff130bfe5ed043edfc6754795e78aea1360de2d84a3883fceb3477665ea88304c
+Description: V2ray plugin for shadowsocks
+ Yet another SIP003 plugin for shadowsocks, based on V2ray-core.
+ It should be used with shadowsocks.
+Homepage: https://github.com/teddysun/v2ray-plugin
+
+Package: v2ray-plugin
+Priority: optional
+Section: devel
+Installed-Size: 15821
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 5.48.0-1~debian.11~bullseye
+Filename: pool/main/v/v2ray-plugin/v2ray-plugin_5.48.0-1~debian.11~bullseye_arm64.deb
+Size: 4208688
+MD5sum: 6864de98269783c18624f17fcd1bee6e
+SHA1: 0170b9cd1bd5f5700a2a39519ff880104f1a71c2
+SHA256: 68d9aa110edb1da13650cffe67c00b71e24497fce5fd85c930375a291e9141f8
+SHA512: 301c9123f670a3f490132ad6b8ffb7d70ff20da08e4c636b0b588694ef7133ff84813df7dd520df2713f22e636aa5b2fe275862b0e171db525178c847f83d9ec
+Description: V2ray plugin for shadowsocks
+ Yet another SIP003 plugin for shadowsocks, based on V2ray-core.
+ It should be used with shadowsocks.
+Homepage: https://github.com/teddysun/v2ray-plugin
+
+Package: xray
+Priority: optional
+Section: net
+Installed-Size: 54971
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 26.7.28-1~debian.11~bullseye
+Filename: pool/main/x/xray/xray_26.7.28-1~debian.11~bullseye_arm64.deb
+Size: 9835640
+MD5sum: 4c2adb307a66d8a30cfc79ca40b9cfaa
+SHA1: c7eee0bfcf95bcde8622a4d246a81c2f19f382f2
+SHA256: 203fe4ae66005cf8793d015547b741d83d7dcdea3e78921073092a3e3e7f1d68
+SHA512: f41052b86e96643a27697dd69142aa2114420934169339e34e7a9b4da712191420d1f2272b4d63664a5d3c98d9200b8d036f3be2071418977dcef18771dbb797
+Description: Xray, Penetrates Everything.
+ Also the best v2ray-core, with XTLS support. Fully compatible configuration.
+Homepage: https://github.com/xtls/xray-core
+
+Package: xray
+Priority: optional
+Section: net
+Installed-Size: 50782
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 26.3.27-1~debian.11~bullseye
+Filename: pool/main/x/xray/xray_26.3.27-1~debian.11~bullseye_arm64.deb
+Size: 9484508
+MD5sum: 58629a21889f76f34a27e750db695f27
+SHA1: b8ac795b1de4233792ca6d315d4a9269bd2f681e
+SHA256: 64380f2ccdd1a286812fc4fe553a32b1dac3d9fc09cf91b2660ea157ad223227
+SHA512: 618d605baf44495cd8f03512e0b8d260b9f3b7a0c284b37e14faa9694528f1919316bc1627ceccdb24818f302e6f7c9116528966429a7cbfec4a0391e894fa66
+Description: Xray, Penetrates Everything.
+ Also the best v2ray-core, with XTLS support. Fully compatible configuration.
+Homepage: https://github.com/xtls/xray-core
+
+Package: xray-plugin
+Priority: optional
+Section: devel
+Installed-Size: 17774
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 1.8.24-5~debian.11~bullseye
+Filename: pool/main/x/xray-plugin/xray-plugin_1.8.24-5~debian.11~bullseye_arm64.deb
+Size: 4711188
+MD5sum: 4ccae9e123aea555f003c0cf9ab6cfed
+SHA1: 49da07b82a7049ce94f7e7083f0e73ce12610319
+SHA256: 9706d09342e6a5a130fcf4302c9d8b14b844df0f32e7784dce88a8c2a064237c
+SHA512: 828ca39e4b7a4196e5c192c651818cf5d23de3e9f833ab8ddf0688a378c02399a1d8cf087cde5e355c94b957d70e23d510891a797c99583c3d860986ee3b9966
+Description: Xray plugin for shadowsocks
+ Yet another SIP003 plugin for shadowsocks, based on xray-core.
+ It should be used with shadowsocks.
+Homepage: https://github.com/teddysun/xray-plugin
+
+Package: xray-plugin
+Priority: optional
+Section: devel
+Installed-Size: 17884
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: arm64
+Version: 1.8.24-3~debian.11~bullseye
+Filename: pool/main/x/xray-plugin/xray-plugin_1.8.24-3~debian.11~bullseye_arm64.deb
+Size: 4624956
+MD5sum: 47d66f03311a8ba1783c87fa62858b9f
+SHA1: bbd0c6f2a2f16dfa650eb24f63db789b3bce17b2
+SHA256: 1641dc27ec06520284b0b437817ae4f31c4e81b3a2a95c3218a40a0e8e13fcfa
+SHA512: 70f455a0d257d5e257a4c309b080c2bf589845a429c1218fb3ef0acd4e107e92156648be2b61647f231f416b13d25c63f189851f4639f2e4e508d1229cd922b4
+Description: Xray plugin for shadowsocks
+ Yet another SIP003 plugin for shadowsocks, based on xray-core.
+ It should be used with shadowsocks.
+Homepage: https://github.com/teddysun/xray-plugin
+

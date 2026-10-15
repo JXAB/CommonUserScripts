@@ -1,0 +1,19 @@
+# 由 tools/sync-mirror.sh 生成，请勿手工编辑
+# 同步时间: 2026-10-15 02:31:18 UTC
+# 格式: codename|arch|package|version|sha256|相对路径
+buster|amd64|shadowsocks-libev|3.3.5-12~debian.10~buster|746eed752da3061d5526aa306bcece97e277856a1b8152f177cb2c0e5bd2a1a9|debian/buster/shadowsocks-libev_3.3.5-12~debian.10~buster_amd64.deb
+buster|arm64|shadowsocks-libev|3.3.5-12~debian.10~buster|59c9c1dddcdf2e409906cc2611d00a51d4918b8d0270add5bdf13c540a2e32d3|debian/buster/shadowsocks-libev_3.3.5-12~debian.10~buster_arm64.deb
+bullseye|amd64|shadowsocks-libev|3.3.6-2~debian.11~bullseye|24177977c43f00206936dd02c4161d6faf0f3fb9b17057c77b5f55fd547aafd9|debian/bullseye/shadowsocks-libev_3.3.6-2~debian.11~bullseye_amd64.deb
+bullseye|arm64|shadowsocks-libev|3.3.6-2~debian.11~bullseye|3e9c6c7dce850f7ca90a66e5f7b68e9969304d0d15f266e4a410f54c32771030|debian/bullseye/shadowsocks-libev_3.3.6-2~debian.11~bullseye_arm64.deb
+bookworm|amd64|shadowsocks-libev|3.3.6-2~debian.12~bookworm|fc76b46aaff9d8016062dfdb86a99f928c9a26ba5152ab289845f7472b006641|debian/bookworm/shadowsocks-libev_3.3.6-2~debian.12~bookworm_amd64.deb
+bookworm|arm64|shadowsocks-libev|3.3.6-2~debian.12~bookworm|6affccdd77814f725204f4fd4250787b9ff9f8e0b5fb1c37d5ba270c5c67d607|debian/bookworm/shadowsocks-libev_3.3.6-2~debian.12~bookworm_arm64.deb
+trixie|amd64|shadowsocks-libev|3.3.6-2~debian.13~trixie|5e54afa86e96a0ce47c9924b49300c6e99432118ca82ef1f9333ca2c63f5a9fa|debian/trixie/shadowsocks-libev_3.3.6-2~debian.13~trixie_amd64.deb
+trixie|arm64|shadowsocks-libev|3.3.6-2~debian.13~trixie|d1904c23c3d41437a45a290dcae93a0eaea5dd8f4385830e791560804c648984|debian/trixie/shadowsocks-libev_3.3.6-2~debian.13~trixie_arm64.deb
+focal|amd64|shadowsocks-libev|3.3.6-2~ubuntu.20.04~focal|ff269287405ed9a0106ef2748c87a452a66e549eb4eddcfe5d4c03de521275b3|ubuntu/focal/shadowsocks-libev_3.3.6-2~ubuntu.20.04~focal_amd64.deb
+focal|arm64|shadowsocks-libev|3.3.6-2~ubuntu.20.04~focal|16f60335d4fd13cc2386266065a9ac0576dc460b4449cd9762ca3dbc2cb1d9e6|ubuntu/focal/shadowsocks-libev_3.3.6-2~ubuntu.20.04~focal_arm64.deb
+jammy|amd64|shadowsocks-libev|3.3.6-2~ubuntu.22.04~jammy|ead6858f8a3b66b2ed284ff10a697b585e8f37258fcd2a7ae06a7fd8cf7f1323|ubuntu/jammy/shadowsocks-libev_3.3.6-2~ubuntu.22.04~jammy_amd64.deb
+jammy|arm64|shadowsocks-libev|3.3.6-2~ubuntu.22.04~jammy|84acd6bf9af71461ff96772dde9bd0f51cf4c716ad560086c5ca39a899793ec2|ubuntu/jammy/shadowsocks-libev_3.3.6-2~ubuntu.22.04~jammy_arm64.deb
+noble|amd64|shadowsocks-libev|3.3.6-2~ubuntu.24.04~noble|dfce0f17faa5dd7102a8c9506f273082c916ce5f7c4672df12cf2c1991677bb7|ubuntu/noble/shadowsocks-libev_3.3.6-2~ubuntu.24.04~noble_amd64.deb
+noble|arm64|shadowsocks-libev|3.3.6-2~ubuntu.24.04~noble|f2d4ef2c56491bac4727a1856708e951ab565cf2a45ef90f7279b14bdb8a5581|ubuntu/noble/shadowsocks-libev_3.3.6-2~ubuntu.24.04~noble_arm64.deb
+resolute|amd64|shadowsocks-libev|3.3.6-2~ubuntu.26.04~resolute|c9ff00b39341e9ba442c39f0dc4e1d3bf96493ee5abfb6d14e959c71e7f37bae|ubuntu/resolute/shadowsocks-libev_3.3.6-2~ubuntu.26.04~resolute_amd64.deb
+resolute|arm64|shadowsocks-libev|3.3.6-2~ubuntu.26.04~resolute|ecb3daf6eb45212c49928dfa955726845e8e160de1300b3d4fd8c3f6bcc9d814|ubuntu/resolute/shadowsocks-libev_3.3.6-2~ubuntu.26.04~resolute_arm64.deb

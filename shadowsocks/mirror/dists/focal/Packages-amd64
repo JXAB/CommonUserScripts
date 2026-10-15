@@ -1,0 +1,584 @@
+Package: brook
+Priority: optional
+Section: devel
+Installed-Size: 20942
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 20260101-1~ubuntu.20.04~focal
+Filename: pool/main/b/brook/brook_20260101-1~ubuntu.20.04~focal_amd64.deb
+Size: 6104176
+MD5sum: f104281a07747b76e7ce19ff292b6862
+SHA1: 1ab53a50e83bf59e82bae394d2e4e5f39a21c815
+SHA256: 1e005c9b6a90557d2a9fe980ddf3d83e4221a832171fb1884c66751b217c3578
+SHA512: b4890378ebc520d2d539cdacc58750a993ca4b79390b753990492aa4f14d7a94fcb24bc0d3aa387d1ab859ae6f7251cab82bb6d81fd63778b8a5ee4f9b489674
+Description: A cross-platform programmable network tool.
+Homepage: https://github.com/txthinking/brook
+
+Package: brook
+Priority: optional
+Section: devel
+Installed-Size: 20841
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 20250808-1~ubuntu.20.04~focal
+Filename: pool/main/b/brook/brook_20250808-1~ubuntu.20.04~focal_amd64.deb
+Size: 6038448
+MD5sum: d4c8e875d3f9a4ca370c691a53e4ac59
+SHA1: 58d6228becdc4c17dc883622885e511b6ac947a7
+SHA256: 274894c3cb6273a8e7880450a6c6af4cf26ee9397654df490d1c4b36fedd90d3
+SHA512: 512568dea4a26b4e574852080251afccea2a9b03a22c85397148a8cf37ce79e1704daf188befeb400735090a6da67fa4b6a4bad3524299c64745b8821ce7d532
+Description: A cross-platform programmable network tool.
+Homepage: https://github.com/txthinking/brook
+
+Package: caddy
+Priority: optional
+Section: net
+Installed-Size: 62570
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 2.11.7-1~ubuntu.20.04~focal
+Depends: tzdata, ca-certificates
+Filename: pool/main/c/caddy/caddy_2.11.7-1~ubuntu.20.04~focal_amd64.deb
+Size: 15157044
+MD5sum: 9310fe58b18e8d1164b2b8c7bb33d30c
+SHA1: 6a13c2aba9313449a0366526c4d5213b95fba181
+SHA256: b4d4356a1415e012ce5322647a340ad6565d5920f50bc74d8a63d0450be5e37a
+SHA512: eff9cc660d9c0ff62a2214c4a2e501e342aa1b759e91b191a08b5ac22507f2ac97fd82998a567099c34a9e438f51026ff92164e1c89c87b3e358b09f3d9efdcb
+Description: Caddy is a Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS.
+Homepage: https://github.com/caddyserver/caddy
+
+Package: caddy
+Priority: optional
+Section: net
+Installed-Size: 58724
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 2.11.4-3~ubuntu.20.04~focal
+Depends: tzdata, ca-certificates
+Filename: pool/main/c/caddy/caddy_2.11.4-3~ubuntu.20.04~focal_amd64.deb
+Size: 14510716
+MD5sum: 6543bdda41ca6fdb8726f9b68f8f5ffa
+SHA1: a8a5e8a66fdc6402543b90aa3f5cceb7e45d2097
+SHA256: 2714c24a1e050573b1bae113c09fe3c6274ced3b8b080db0e9b6db284453cb1d
+SHA512: 927d592cba07b956babb7d9193161f3aa723227a29cd9d412e924beb10f5837733ec11334c24d029429a5944308f1a9952a388f233e0a5f1e5430d1d621527ed
+Description: Caddy is a Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS.
+Homepage: https://github.com/caddyserver/caddy
+
+Package: go-shadowsocks2
+Priority: optional
+Section: net
+Installed-Size: 2436
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 0.1.5-1~ubuntu.20.04~focal
+Depends: libc6 (>= 2.3.4)
+Filename: pool/main/g/go-shadowsocks2/go-shadowsocks2_0.1.5-1~ubuntu.20.04~focal_amd64.deb
+Size: 863596
+MD5sum: 81919f1a482f0127e8045c7d8223f829
+SHA1: f5054fc5a09d38ea26985629f208c00f211af6a0
+SHA256: f78dbb0d58c6d809b0c00170bab22d2c4d52993e60d061b0024c05c0d5d24d77
+SHA512: f591491e000448c7005f51434e5c433a97de2549ec64be0f7a94249ed66f7d0354f5aac7f92b77356da4fefcf591323c4b7d56537f20a25871c08712b0dd5f8b
+Description: Modern Shadowsocks in Go
+ A fresh implementation of Shadowsocks in Go.
+Homepage: https://github.com/shadowsocks/go-shadowsocks2
+
+Package: hysteria
+Priority: optional
+Section: net
+Installed-Size: 23790
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 2.13.0-1~ubuntu.20.04~focal
+Depends: tzdata, ca-certificates
+Filename: pool/main/h/hysteria/hysteria_2.13.0-1~ubuntu.20.04~focal_amd64.deb
+Size: 6829796
+MD5sum: 2f5a58a6f0a2fd0d4e89edd165f8618a
+SHA1: 344472ba7033d143a6cffa9692c899642fb16b4e
+SHA256: ad3624a094235f8613caa6d02781d61cc0a89925cc4091c55fe966dacbb010ab
+SHA512: 861844d7c5e9bc5a622cb96f9c9fc9acb85978bc73dcb7adfab4e41e2b8c14b9afbb44af9cccd8b0d2dd3545118fac0332a72dfa9e802edc635a8971cc1e9e93
+Description: Hysteria is a powerful, lightning fast and censorship resistant proxy.
+Homepage: https://github.com/apernet/hysteria
+
+Package: hysteria
+Priority: optional
+Section: net
+Installed-Size: 22911
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 2.12.3-1~ubuntu.20.04~focal
+Depends: tzdata, ca-certificates
+Filename: pool/main/h/hysteria/hysteria_2.12.3-1~ubuntu.20.04~focal_amd64.deb
+Size: 6627348
+MD5sum: fefba13c7f0d93ca7efc4ba5c5d42034
+SHA1: 448e7022261822f0959d10172a144d40a2b172ef
+SHA256: 0c3856e440ffe2abb31d6bca361fa06d9bf01d776819fb8341bbcb9a77be5976
+SHA512: 489fc4c997cd962b751746762dca8f738c714a067600a2aa04c03ec6305db2ab3399fb96aaaa03331a8119e0490c0a634530402562e33f400a52c079d0f267b6
+Description: Hysteria is a powerful, lightning fast and censorship resistant proxy.
+Homepage: https://github.com/apernet/hysteria
+
+Package: kcptun
+Priority: optional
+Section: net
+Installed-Size: 25221
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 20260101-1~ubuntu.20.04~focal
+Filename: pool/main/k/kcptun/kcptun_20260101-1~ubuntu.20.04~focal_amd64.deb
+Size: 7390592
+MD5sum: 58f6723fd5753261d6c76457e56f007d
+SHA1: e5bd73381974a11e019e03feb81c24de1241c281
+SHA256: 92165834b8edeb383a440ca3989638d8ba71969b1d58cf274d88df12a727ddc3
+SHA512: a9b10c0b6ad4fc7b7cdeb20f86ecd1f3a730ce17305eb81c11190bdc0218db2b6e4bcd45a9b0220d7573e6df4da98368326812c6bde27757a39e53eeef7bfe52
+Description: A Stable & Secure Tunnel based on KCP with N:M multiplexing and FEC.
+Homepage: https://github.com/xtaci/kcptun
+
+Package: kcptun
+Priority: optional
+Section: net
+Installed-Size: 25219
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 20251219-1~ubuntu.20.04~focal
+Filename: pool/main/k/kcptun/kcptun_20251219-1~ubuntu.20.04~focal_amd64.deb
+Size: 7386760
+MD5sum: c8d088b33d531119320c331197c65101
+SHA1: fcaa1b7228664c63f7e1fa0582ae3b7f02593b32
+SHA256: 7f32c474036fe18afcbe116c68de84f63924d0cc159b6bef3379991616287154
+SHA512: 567d31bc8ed55f6cb1605876698b7973bc59adb2cfab5e230f899250ee592baccf790d4e34c8bfe74ce6d0663c3842ffb6ea2852533b21515176745f39dba92c
+Description: A Stable & Secure Tunnel based on KCP with N:M multiplexing and FEC.
+Homepage: https://github.com/xtaci/kcptun
+
+Package: libshadowsocks-libev
+Priority: optional
+Section: libs
+Installed-Size: 179
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Source: shadowsocks-libev
+Version: 3.3.6-2~ubuntu.20.04~focal
+Replaces: libshadowsocks-libev1
+Breaks: libshadowsocks-libev1
+Filename: pool/main/s/shadowsocks-libev/libshadowsocks-libev_3.3.6-2~ubuntu.20.04~focal_amd64.deb
+Size: 63968
+MD5sum: 88a834a554d94125b5ec82abb8ef1e69
+SHA1: 91245c6e8bb9c04bcdf5ac2d5abbdeca23993f65
+SHA256: 0d3fd1586cfb5806d25cea8702aa893024acbcc91a9fa9e500421201458d656d
+SHA512: 28e8c3d7e7f0af14e59f271508748f7be36ad980086cb5d5b2914d84e0f7ada814439a28fefd93830a40563d0cdc881fa0b8886b67d68b0330e9da0f4f762769
+Description: lightweight and secure socks5 proxy (shared library)
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+ .
+ This package provides shared libraries.
+Homepage: https://www.shadowsocks.org
+Multi-Arch: same
+
+Package: libshadowsocks-libev
+Priority: optional
+Section: libs
+Installed-Size: 139
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Source: shadowsocks-libev
+Version: 3.3.5-12~ubuntu.20.04~focal
+Replaces: libshadowsocks-libev1
+Breaks: libshadowsocks-libev1
+Filename: pool/main/s/shadowsocks-libev/libshadowsocks-libev_3.3.5-12~ubuntu.20.04~focal_amd64.deb
+Size: 47876
+MD5sum: 3a633fba4deba8d65a5a49e196de7cac
+SHA1: 08c7dd2fe0e80a679755f1c3c067f4dfb81c0fc7
+SHA256: 4bc52cbfb878429a7e5c7f4e220a95c00c5533b89d503c66741c3d0f8dfe9cde
+SHA512: a40e8425f2709b7938a1c8dd18a3a9f8025368f66d00ba075e130bc950e41cb1baf19ef8f646a2c2d90e31a7c0f28e09b99ede2f4ec7d0313d62e40d7af4c817
+Description: lightweight and secure socks5 proxy (shared library)
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+ .
+ This package provides shared libraries.
+Homepage: https://www.shadowsocks.org
+Multi-Arch: same
+
+Package: shadowsocks-libev
+Priority: optional
+Section: net
+Installed-Size: 1019
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 3.3.6-2~ubuntu.20.04~focal
+Depends: libcap2-bin, lsb-base (>= 3.0-6), libc-ares2 (>= 1.11.0~rc1), libc6 (>= 2.29), libev4 (>= 1:4.04), libmbedcrypto3 (>= 2.13), libpcre2-8-0 (>= 10.22), libsodium23 (>= 1.0.12)
+Filename: pool/main/s/shadowsocks-libev/shadowsocks-libev_3.3.6-2~ubuntu.20.04~focal_amd64.deb
+Size: 199908
+MD5sum: 8fbea113601f24116405965b749951dc
+SHA1: 5772187da4b91cd62efd049b62b5a71f292161ce
+SHA256: ff269287405ed9a0106ef2748c87a452a66e549eb4eddcfe5d4c03de521275b3
+SHA512: 87b4f3bb884790f6c0134862758d2beda9ba2aa212978ff422384bfcecb2d728598305a5b0a94078cad8949d897a6966bfb651ce58e99ce9334487dbbf1afbe2
+Description: lightweight and secure socks5 proxy
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+Homepage: https://www.shadowsocks.org
+
+Package: shadowsocks-libev
+Priority: optional
+Section: net
+Installed-Size: 807
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 3.3.5-12~ubuntu.20.04~focal
+Depends: libcap2-bin, lsb-base, libbloom1, libc-ares2, libc6, libcork16, libcorkipset1, libev4, libjsonparser1.1, libmbedtls-dev, libpcre3, libsodium23
+Filename: pool/main/s/shadowsocks-libev/shadowsocks-libev_3.3.5-12~ubuntu.20.04~focal_amd64.deb
+Size: 165292
+MD5sum: fc22d5149965796bd95031d76664ae20
+SHA1: fed32a08edc53d8adcd238076acad9e4c7197012
+SHA256: 27f09d591a838bd3f22f5dff8fffd7bc5deed996a3d2ff90e631c1a1af67f36f
+SHA512: 660069134aaf530b04998263f7b40c74073d92f6578981abbfb089160dd07a69a0ce4a02f43f642e87978416d486e3b6cfe67752b26bddc8a414bff90c2ccc2c
+Description: lightweight and secure socks5 proxy
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+Homepage: https://www.shadowsocks.org
+
+Package: shadowsocks-libev-dev
+Priority: optional
+Section: libdevel
+Installed-Size: 17
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Source: shadowsocks-libev
+Version: 3.3.6-2~ubuntu.20.04~focal
+Depends: libshadowsocks-libev (= 3.3.6-2~ubuntu.20.04~focal)
+Filename: pool/main/s/shadowsocks-libev/shadowsocks-libev-dev_3.3.6-2~ubuntu.20.04~focal_amd64.deb
+Size: 3176
+MD5sum: d8b938746262313962876e241cc1b25b
+SHA1: 9162f67dbdb07794c6773c2b901310eb7eaf08af
+SHA256: c94b49bd6c781c06b1eb91cb6e1f9154dffc5100e695642ab1cc70096bfd7445
+SHA512: b0d48f131fb7f97e1ef354c99c09dc87c80eff661e114930521db459d5ac283588989011ef727569e5db39ad043b42f5905ffa1b52dfed630b4a51bc4ab4cc95
+Description: lightweight and secure socks5 proxy (development files)
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+ .
+ This package provides C header files for the libraries.
+Homepage: https://www.shadowsocks.org
+Multi-Arch: same
+
+Package: shadowsocks-libev-dev
+Priority: optional
+Section: libdevel
+Installed-Size: 17
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Source: shadowsocks-libev
+Version: 3.3.5-12~ubuntu.20.04~focal
+Depends: libshadowsocks-libev (= 3.3.5-12~ubuntu.20.04~focal)
+Filename: pool/main/s/shadowsocks-libev/shadowsocks-libev-dev_3.3.5-12~ubuntu.20.04~focal_amd64.deb
+Size: 3180
+MD5sum: 886af6e4fa43f8256b66d7c0a63c789a
+SHA1: beaa1725e3ca26cc76dd415577e599cc5ae26283
+SHA256: 4afb2213b331f8b31104e332ceb26e55de72f530ff7cdc84cb37e65e27d1335b
+SHA512: 759453518bae83a9aa66c01589e8c136af153320fa6af7a6212b043f4059d8364ab7a06dd971df0b3dbb7153f9af1df1223eb648282b0133b7f149b1c623ed6b
+Description: lightweight and secure socks5 proxy (development files)
+ Shadowsocks-libev is a lightweight and secure socks5 proxy for
+ embedded devices and low end boxes.
+ .
+ Shadowsocks-libev was inspired by Shadowsocks (in Python). It's rewritten
+ in pure C and only depends on libev, mbedTLS and a few other tiny
+ libraries.
+ .
+ This package provides C header files for the libraries.
+Homepage: https://www.shadowsocks.org
+Multi-Arch: same
+
+Package: shadowsocks-qtun
+Priority: optional
+Section: net
+Installed-Size: 7597
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 0.3.0-1~ubuntu.20.04~focal
+Depends: libc6 (>= 2.29), libgcc-s1 (>= 4.2)
+Conflicts: shadowsocks
+Filename: pool/main/s/shadowsocks-qtun/shadowsocks-qtun_0.3.0-1~ubuntu.20.04~focal_amd64.deb
+Size: 1701980
+MD5sum: a708a33a84c4c68955c0c068f9e07f4a
+SHA1: 830c75e9a291740917e3d42b6e308c6a0737abf0
+SHA256: b1f71cf5f3313d665c22a286f839b8920567a2491e86e0a63621d2a335bde261
+SHA512: 2caa3e3387dc344be3bca52a1125cf145fb123e28df405e413011cdc37b41a00b7ffc88e908e520e40f9acafb89472c379f3d59efbff490c6bb657c3efa35c01
+Description: A SIP003 plugin based on IETF-QUIC, designed as plugin server of shadowsocks
+Homepage: https://github.com/shadowsocks/qtun
+
+Package: shadowsocks-qtun
+Priority: optional
+Section: net
+Installed-Size: 7055
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 0.2.0-1~ubuntu.20.04~focal
+Depends: libc6 (>= 2.29), libgcc-s1 (>= 4.2)
+Conflicts: shadowsocks
+Filename: pool/main/s/shadowsocks-qtun/shadowsocks-qtun_0.2.0-1~ubuntu.20.04~focal_amd64.deb
+Size: 1507528
+MD5sum: 7fe728d7bbb35ac8f4cf9631a3a3f0b4
+SHA1: 048eb885d11a4bf741b0ca91a58f78b46ae111eb
+SHA256: 16954099b31d20144906ad7b9c3b499b27b3761fe7e603d0809d95ca709aaa96
+SHA512: 5fe7814fdb10596866eb5ebff7a204db802ec55d89f9a55939fbc81db4934f39c57ec9a0718f7c68737c440fccc2a1567cb7e2adf008b7c7262b06660ca73745
+Description: A SIP003 plugin based on IETF-QUIC, designed as plugin server of shadowsocks
+Homepage: https://github.com/shadowsocks/qtun
+
+Package: shadowsocks-rust
+Priority: optional
+Section: net
+Installed-Size: 47904
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 1.25.0-1~ubuntu.20.04~focal
+Depends: libc6 (>= 2.30), libgcc-s1 (>= 4.2), lsb-base
+Conflicts: shadowsocks
+Filename: pool/main/s/shadowsocks-rust/shadowsocks-rust_1.25.0-1~ubuntu.20.04~focal_amd64.deb
+Size: 13964348
+MD5sum: f2dd42f8c6425abfdf4092c6bbb3e0a7
+SHA1: 135faea4631cbee11892c3b71674156d578be32c
+SHA256: 286426895aaed0323cef6cc8280e2892111701e8276b20feab0f7d88a3486794
+SHA512: 142e0a1c9d89b581f93ffeac072fcdb3384b90778daf9bdbf49faef6de07a179eacf816c85d0518d0c66b97e1b40b4d307377f884476201ba9c3a70e35fe2279
+Description: Rust port of shadowsocks, a secure socks5 proxy
+ Shadowsocks is a fast tunnel proxy that helps you bypass firewalls.
+ Shadowsocks-rust was inspired by Shadowsocks (in Python).
+ It's rewritten in rust.
+Homepage: https://github.com/shadowsocks/shadowsocks-rust
+
+Package: shadowsocks-rust
+Priority: optional
+Section: net
+Installed-Size: 40610
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 1.24.0-1~ubuntu.20.04~focal
+Depends: libc6 (>= 2.30), libgcc-s1 (>= 4.2), lsb-base
+Conflicts: shadowsocks
+Filename: pool/main/s/shadowsocks-rust/shadowsocks-rust_1.24.0-1~ubuntu.20.04~focal_amd64.deb
+Size: 12327316
+MD5sum: eec010f4b4a8ff163a8a20bc1da4e2af
+SHA1: 7cc7353af17d948017d85b2ecc4a10d8d7106a95
+SHA256: 2c882ece8f318f7f102cfee3bb26fc1d176737a0f34a097503235ee0fc163acf
+SHA512: efd628e7e80927881e618393f54d73a416d161fd38570a8fd0ffa386366dc7a23c8c19c2600e9a8fc8d0542240020c885a0d1ebb2e68b6899ef833199357a5fe
+Description: Rust port of shadowsocks, a secure socks5 proxy
+ Shadowsocks is a fast tunnel proxy that helps you bypass firewalls.
+ Shadowsocks-rust was inspired by Shadowsocks (in Python).
+ It's rewritten in rust.
+Homepage: https://github.com/shadowsocks/shadowsocks-rust
+
+Package: shadowsocks-simple-obfs
+Priority: optional
+Section: net
+Installed-Size: 212
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 0.0.5-1~ubuntu.20.04~focal
+Depends: libcap2-bin, libc6, libcork16, libev4
+Filename: pool/main/s/shadowsocks-simple-obfs/shadowsocks-simple-obfs_0.0.5-1~ubuntu.20.04~focal_amd64.deb
+Size: 51788
+MD5sum: 96a4808e3f56b786ba287d8d77e513f4
+SHA1: d4632af11f76a1836624cb328f52205de818959e
+SHA256: e32ccf2bc381e4cafd90eab0c0320411f8a47bdeb3edad750281641f40d0b43d
+SHA512: 990c12d381e0d2516af29700023cd0edf4a4670b43647e2e789bc96bf14a092f85755b55eeb546ce0ee9de336546a66d186d15f235a01c7f6dcf2bb70c51745d
+Description: simple obfusacting plugin for shadowsocks
+ Simple-obfs is a simple obfusacting tool,
+ designed as plugin server/client of shadowsocks
+ .
+ Simple-obfs is written in pure C and takes advantage of
+ libev to achieve both high performance and low resource consumption.
+Homepage: https://github.com/shadowsocks/simple-obfs
+
+Package: sing-box
+Priority: optional
+Section: net
+Installed-Size: 76540
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 1.14.3-1~ubuntu.20.04~focal
+Depends: tzdata, ca-certificates, dbus, polkitd
+Filename: pool/main/s/sing-box/sing-box_1.14.3-1~ubuntu.20.04~focal_amd64.deb
+Size: 19246892
+MD5sum: bcb3df4d8a69bdb03e22cb91bf34f0ba
+SHA1: 33ab90b1153790d2c11d7a5f099bca5947273220
+SHA256: 408a45ae9e2a12622fb8ad937e272e7f417ef10f471a2fd7019d7cdd2eb917fb
+SHA512: ac6f0e26c5cd4b3d19d7014be3e9bcd80298ff645b9afcec537eae65c1b97486f5eaf791a87d3628b0c5179b8288f3f648308874dfaac71e4a3bd7302f75f51f
+Description: sing-box is a universal proxy platform.
+Homepage: https://github.com/SagerNet/sing-box
+
+Package: sing-box
+Priority: optional
+Section: net
+Installed-Size: 76498
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 1.14.2-1~ubuntu.20.04~focal
+Depends: tzdata, ca-certificates, dbus, polkitd
+Filename: pool/main/s/sing-box/sing-box_1.14.2-1~ubuntu.20.04~focal_amd64.deb
+Size: 19243880
+MD5sum: 7dda3ba0b59563c4102e8450c7190710
+SHA1: b9c61bc4eea340e5ffe7b820751cd34691e75f5d
+SHA256: 748346d419f476edc11b30720c1497f23792cb0aa0da30df59c8a02a26dab326
+SHA512: 6bff7e2430c920b44bc106261666b73f6c271230ca459b37f8dac23493f818b28f5d88b0bd461fd4e2f717c3317a0c4d591e1db78fd67ef53f28af963f0e6619
+Description: sing-box is a universal proxy platform.
+Homepage: https://github.com/SagerNet/sing-box
+
+Package: v2ray
+Priority: optional
+Section: net
+Installed-Size: 64463
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 5.54.2-1~ubuntu.20.04~focal
+Filename: pool/main/v/v2ray/v2ray_5.54.2-1~ubuntu.20.04~focal_amd64.deb
+Size: 12841964
+MD5sum: c6efc22ef0d1017a8c5fd828bf05d47e
+SHA1: c6ded2d289a3be46267815d7123180b60f672230
+SHA256: bc9c19a964897074fdb843bcfc63a3d67ffc5eeda1eb3a3aa7df0c4d7af40e71
+SHA512: 1fa3cd97ea702a1c8d6e3993670b546839f7ce49bec8655f34009d969c4d9d723e081416602955c23217fab27a2cb64e093926a018d27b0af848d7a81dce085d
+Description: Library platform for building proxies in golang
+ Project V2Ray is a set of network tools that help you to build your
+ own computer network. It secures your network connections and thus
+ protects your privacy.
+Homepage: https://github.com/v2fly/v2ray-core
+
+Package: v2ray
+Priority: optional
+Section: net
+Installed-Size: 63605
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 5.53.0-1~ubuntu.20.04~focal
+Filename: pool/main/v/v2ray/v2ray_5.53.0-1~ubuntu.20.04~focal_amd64.deb
+Size: 12603532
+MD5sum: 571a3852ff8d6a73023fdf3e09df9ba8
+SHA1: 052d8584e6d2138f8b32f192913ae0dc08bb29e0
+SHA256: 6eefc9ffd03467c0738396f83c08b78b5b6ab746f6fda719ff3f0f43d7f80eb5
+SHA512: 894d85cdb56f8df666897214c30fcc51c68c3075701d89a495ce93348cdf5237c953a9b8829690f8833add8999f8eb000022d98f817a934eaa37e715e93e7953
+Description: Library platform for building proxies in golang
+ Project V2Ray is a set of network tools that help you to build your
+ own computer network. It secures your network connections and thus
+ protects your privacy.
+Homepage: https://github.com/v2fly/v2ray-core
+
+Package: v2ray-plugin
+Priority: optional
+Section: devel
+Installed-Size: 16829
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 5.49.0-1~ubuntu.20.04~focal
+Filename: pool/main/v/v2ray-plugin/v2ray-plugin_5.49.0-1~ubuntu.20.04~focal_amd64.deb
+Size: 4938764
+MD5sum: be2b5d1b9a569e81c41bcea96d4c059b
+SHA1: 582ffde8ffda92167b2ca350528e079a57d0a312
+SHA256: cd48ea21d01a140e3344094728bd6f84199c1de573e0eddd981a2587d406404f
+SHA512: 5f589fe3a4e33e8ba1122a46ec6c5f6f7625662574271b45abafc6beac7473b3881f2957f6c1ab317984766223f24604d391abeaa4c2015bb8d4d10bc8d4436f
+Description: V2ray plugin for shadowsocks
+ Yet another SIP003 plugin for shadowsocks, based on V2ray-core.
+ It should be used with shadowsocks.
+Homepage: https://github.com/teddysun/v2ray-plugin
+
+Package: v2ray-plugin
+Priority: optional
+Section: devel
+Installed-Size: 16801
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 5.48.0-1~ubuntu.20.04~focal
+Filename: pool/main/v/v2ray-plugin/v2ray-plugin_5.48.0-1~ubuntu.20.04~focal_amd64.deb
+Size: 4932844
+MD5sum: 741b2a63548438f4953ccedc72aebc20
+SHA1: 10712a03f6147cbf133fe6b05d0862ed1297d267
+SHA256: 909263965bd680790becc975eec1ab402a983d652ecf819d47816692e76ba04b
+SHA512: ef216c0a021ed00b3f365ce5bf44417f6675790e7d93f7abcefa8f45275507cbacf104c6c99b3c466e5090bcce6c53aaed441fa8f4b417fbbf722329e273a5c2
+Description: V2ray plugin for shadowsocks
+ Yet another SIP003 plugin for shadowsocks, based on V2ray-core.
+ It should be used with shadowsocks.
+Homepage: https://github.com/teddysun/v2ray-plugin
+
+Package: xray
+Priority: optional
+Section: net
+Installed-Size: 59673
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 26.10.10-1~ubuntu.20.04~focal
+Filename: pool/main/x/xray/xray_26.10.10-1~ubuntu.20.04~focal_amd64.deb
+Size: 12058512
+MD5sum: d57ee038430655998a122e0ddb9978ad
+SHA1: d6469788da6b984421302dcde7d86a9f99683919
+SHA256: 3cf3a0d2eae00aac50d3ee54efff48853b35426c418b43972197aa3b018ef310
+SHA512: 575b19ba43cfcc96bf476300c1916fdc4580d1705dfa9d2eeea8962edcc080c4b5cb858b12c2a6558981743711aba23f6ad2464fccc05ed45c272f210d098d0f
+Description: Xray, Penetrates Everything.
+ Also the best v2ray-core, with XTLS support. Fully compatible configuration.
+Homepage: https://github.com/xtls/xray-core
+
+Package: xray
+Priority: optional
+Section: net
+Installed-Size: 52828
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 26.3.27-1~ubuntu.20.04~focal
+Filename: pool/main/x/xray/xray_26.3.27-1~ubuntu.20.04~focal_amd64.deb
+Size: 10710688
+MD5sum: 83b46c1af2fd37eca6b80acd8cc950f1
+SHA1: 11fc8e20f9440ef092afbe5dbc61a2648d017fb0
+SHA256: 94f975b39b6030ded27af436f9b2f7982adde19b86d01d42d44731ae48fe145a
+SHA512: d94b0dd144633cc5de2f3a2e34fb1fdd4b8e081ffd9fdefdceb83c7ae5f149534cd8c3fd1af0a004a645bd1669adaa1f5b34c3a3edab913a6ee3c572ee4eb7d5
+Description: Xray, Penetrates Everything.
+ Also the best v2ray-core, with XTLS support. Fully compatible configuration.
+Homepage: https://github.com/xtls/xray-core
+
+Package: xray-plugin
+Priority: optional
+Section: devel
+Installed-Size: 19324
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 1.8.24-5~ubuntu.20.04~focal
+Filename: pool/main/x/xray-plugin/xray-plugin_1.8.24-5~ubuntu.20.04~focal_amd64.deb
+Size: 5549660
+MD5sum: 6cfb769442a085980980806aed24ffa7
+SHA1: 5bbd18ec34b3decceebceac57615b5d78270655b
+SHA256: 6eb725b0041ffd08fb28889ff30ffa7d27fd56b5cc7bca6b1f7b3003d6602df0
+SHA512: 459d0503d306f55effeff81f37d2335907ff11dd61dd1944313d615ea63283a5f4d78ff3f501c14100e843ebaaa841d66ba8019481ab86a824ab64f357272265
+Description: Xray plugin for shadowsocks
+ Yet another SIP003 plugin for shadowsocks, based on xray-core.
+ It should be used with shadowsocks.
+Homepage: https://github.com/teddysun/xray-plugin
+
+Package: xray-plugin
+Priority: optional
+Section: devel
+Installed-Size: 19006
+Maintainer: Teddysun <i@teddysun.com>
+Architecture: amd64
+Version: 1.8.24-3~ubuntu.20.04~focal
+Filename: pool/main/x/xray-plugin/xray-plugin_1.8.24-3~ubuntu.20.04~focal_amd64.deb
+Size: 5408904
+MD5sum: 46556bb5d2882bf5166640676b9fd8cd
+SHA1: 8c70b6774281197b2163f2550e198541fc01f1d4
+SHA256: b77e80a7dbe039dd8bdb2722bf4731612e8e4a91cf7cd4f65bdb763ab34bd688
+SHA512: 75c861b4292f4c468f08f986fd036f9852ac614924f0090b33e63df1aad2602ac9838d32ffae468e049d89635a98cbdadaeef8f2d0fa2c97a973c0f62f40010a
+Description: Xray plugin for shadowsocks
+ Yet another SIP003 plugin for shadowsocks, based on xray-core.
+ It should be used with shadowsocks.
+Homepage: https://github.com/teddysun/xray-plugin
+
