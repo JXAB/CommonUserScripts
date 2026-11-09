@@ -1,0 +1,152 @@
+{
+  "modules": [
+    {
+      "id": "sys-timezone",
+      "name": "系统时区与 NTP 同步",
+      "category": "system",
+      "risk_level": "L2",
+      "platforms": {
+        "linux": ["all"],
+        "darwin": ["macos"]
+      },
+      "detect": {
+        "command": ["timedatectl", "show", "--property=Timezone"],
+        "fallback_file": "/etc/timezone"
+      },
+      "verify": {
+        "commands": [
+          { "cmd": ["date"], "expect_code": 0 }
+        ]
+      }
+    },
+    {
+      "id": "sys-bbr",
+      "name": "TCP BBR 拥塞控制优化",
+      "category": "system",
+      "risk_level": "L2",
+      "platforms": {
+        "linux": ["debian", "ubuntu", "fedora", "arch"]
+      },
+      "detect": {
+        "command": ["sysctl", "net.ipv4.tcp_congestion_control"]
+      },
+      "verify": {
+        "commands": [
+          { "cmd": ["sysctl", "net.ipv4.tcp_congestion_control"], "expect_output": "bbr" }
+        ]
+      }
+    },
+    {
+      "id": "base-cli-tools",
+      "name": "核心常用运维工具包 (curl, git, htop, tmux, jq, ripgrep)",
+      "category": "system",
+      "risk_level": "L2",
+      "platforms": {
+        "linux": ["all"],
+        "darwin": ["macos"],
+        "windows": ["win10", "win11"]
+      },
+      "detect": {
+        "binaries": ["curl", "git", "tmux", "jq"]
+      },
+      "verify": {
+        "commands": [
+          { "cmd": ["git", "--version"], "expect_code": 0 },
+          { "cmd": ["curl", "--version"], "expect_code": 0 }
+        ]
+      }
+    },
+    {
+      "id": "sec-ssh-check",
+      "name": "SSH 安全配置预检与加固建议",
+      "category": "security",
+      "risk_level": "L0",
+      "platforms": {
+        "linux": ["all"],
+        "darwin": ["macos"]
+      },
+      "detect": {
+        "sshd_config_path": "/etc/ssh/sshd_config"
+      },
+      "verify": {
+        "commands": [
+          { "cmd": ["sshd", "-t"], "expect_code": 0 }
+        ]
+      }
+    },
+    {
+      "id": "dev-python-uv",
+      "name": "Python & uv 现代化包管理器",
+      "category": "dev_lang",
+      "risk_level": "L1",
+      "platforms": {
+        "linux": ["all"],
+        "darwin": ["macos"],
+        "windows": ["win10", "win11"]
+      },
+      "detect": {
+        "binary": "uv",
+        "version_cmd": ["uv", "--version"],
+        "version_regex": "uv ([0-9.]+)"
+      },
+      "verify": {
+        "commands": [
+          { "cmd": ["uv", "--version"], "expect_code": 0 },
+          { "cmd": ["uv", "python", "list"], "expect_code": 0 }
+        ]
+      }
+    },
+    {
+      "id": "dev-node-fnm",
+      "name": "Node.js & fnm 极速版本管理器",
+      "category": "dev_lang",
+      "risk_level": "L1",
+      "platforms": {
+        "linux": ["all"],
+        "darwin": ["macos"],
+        "windows": ["win10", "win11"]
+      },
+      "detect": {
+        "binary": "fnm",
+        "version_cmd": ["fnm", "--version"]
+      },
+      "verify": {
+        "commands": [
+          { "cmd": ["fnm", "--version"], "expect_code": 0 }
+        ]
+      }
+    },
+    {
+      "id": "ops-system-health",
+      "name": "系统健康体检 (CPU, 内存, 磁盘, 僵尸进程, 端口)",
+      "category": "maintenance",
+      "risk_level": "L0",
+      "platforms": {
+        "linux": ["all"],
+        "darwin": ["macos"]
+      },
+      "detect": {
+        "type": "diagnostic"
+      },
+      "verify": {
+        "commands": []
+      }
+    },
+    {
+      "id": "ops-log-clean-analyzer",
+      "name": "日志与包缓存预估分析器 (安全只读预估)",
+      "category": "maintenance",
+      "risk_level": "L0",
+      "platforms": {
+        "linux": ["all"],
+        "darwin": ["macos"]
+      },
+      "detect": {
+        "type": "space_analyzer"
+      },
+      "verify": {
+        "commands": []
+      }
+    }
+  ]
+}
