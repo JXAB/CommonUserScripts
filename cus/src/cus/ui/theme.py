@@ -18,7 +18,40 @@ CODES = {
     "gray": "\033[90m",
     "reverse": "\033[7m",
     "bold": "\033[1m",
+    "blue": "\033[34m",
+    "magenta": "\033[35m",
+    "bright_green": "\033[92m",
 }
+
+# One accent per main-menu group, matching the dark card mockup:
+# 01 green, 02 blue, 03 magenta, 04 yellow, 05 cyan, 06 bright green
+# (distinct from 01), 07 gray. Group 00 (exit) gets no accent.
+GROUP_STYLES = {
+    "01": "green",
+    "02": "blue",
+    "03": "magenta",
+    "04": "yellow",
+    "05": "cyan",
+    "06": "bright_green",
+    "07": "gray",
+}
+
+
+def group_style(group_id: str) -> str | None:
+    """Accent style for a main-menu group number, or None."""
+    return GROUP_STYLES.get(group_id)
+
+
+def threshold_style(percent: float | None) -> str | None:
+    """Resource-bar color by usage: <60 green, 60-85 yellow, >85 red.
+    None (unknown) stays uncolored."""
+    if percent is None:
+        return None
+    if percent < 60:
+        return "green"
+    if percent <= 85:
+        return "yellow"
+    return "red"
 
 ANSI_RE = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
 # Broader ANSI pattern: also covers private/intermediate bytes such as

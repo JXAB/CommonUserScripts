@@ -11,12 +11,40 @@ import sys
 from ..catalog import modules, plan_module, profiles, status
 from ..runtime import state_path
 from . import renderer as R
-from .dashboard import (format_plan, paint_header_lines, render_doctor,
-                        render_header, render_system, short_version)
+from .dashboard import (format_plan, paint_header_lines,
+                        paint_system_lines, render_doctor, render_header,
+                        render_system, short_version)
 from .layout import display_width, pad, tier, terminal_size, truncate
 from .layout import use_unicode
 from ..monitor import collect
-from .theme import Theme
+from .theme import Theme, group_style
+
+
+def paint_group_line(line: str, gid: str, name: str, hint: str,
+                     theme, unicode_mode: bool, compact: bool) -> str:
+    """Paint one main-menu group row: number + bullet in the group
+    accent, name bright white, hint gray. Runs after boxing."""
+    if theme is None or not theme.enabled:
+        return line
+    style = group_style(gid)
+    if style:
+        line = line.replace(gid, theme.paint(gid, style), 1)
+        bullet = R.glyphs(unicode_mode)["bullet"]
+        line = line.replace(bullet, theme.paint(bullet, style), 1)
+    line = line.replace(name, theme.paint(name, "bold_white"), 1)
+    if hint and not compact:
+        line = line.replace(hint, theme.paint(hint, "gray"), 1)
+    return line
+
+
+def paint_footer_line(line: str, theme, unicode_mode: bool) -> str:
+    """Paint the footer status: green dot, '· 无新增依赖' gray."""
+    if theme is None or not theme.enabled:
+        return line
+    g = R.glyphs(unicode_mode)
+    line = line.replace(g["dot"], theme.paint(g["dot"], "green"), 1)
+    tail = f"{g['mid']} 无新增依赖"
+    return line.replace(tail, theme.paint(tail, "gray"), 1)
 
 # Console groups, built from the real `category` field in data/modules.json.
 # (group, subtitle hint, kind, categories)
@@ -59,8 +87,9 @@ def group_modules(categories) -> list:
 def render_main_screen(host: dict, snap: dict, width: int,
                        unicode_mode: bool, theme=None) -> list[str]:
     """Full main screen. Pure: no I/O, no sampling."""
+    counts = (len(profiles()), len(modules()))
     if tier(width) == "minimal":
-        return _main_minimal(host, snap, width, unicode_mode, theme)
+        return _main_minimal(host, snap, width, unicode_mode, theme, counts)
     box_w = max(38, min(width, 98))
     inner = box_w - 2
     lines = [R.box_top(box_w, unicode_mode)]
@@ -68,8 +97,11 @@ def render_main_screen(host: dict, snap: dict, width: int,
               for line in render_header(inner, unicode_mode)]
     lines += paint_header_lines(header, theme, unicode_mode)
     lines.append(R.section_rule(box_w, "SYSTEM", unicode_mode, theme))
-    for row in render_system(host, snap, inner, unicode_mode, theme):
-        lines.append(R.box_line(row, box_w, unicode_mode))
+    sys_lines = [R.box_line(row, box_w, unicode_mode)
+                 for row in render_system(host, snap, inner, unicode_mode,
+                                          theme, counts)]
+    lines += paint_system_lines(sys_lines, host, snap, theme,
+                                unicode_mode, counts)
     lines.append(R.section_rule(box_w, "WORKSPACE", unicode_mode, theme))
     lines.append(R.box_line("", box_w, unicode_mode))
     glyph = R.glyphs(unicode_mode)
@@ -79,22 +111,32 @@ def render_main_screen(host: dict, snap: dict, width: int,
             hint = f"{len(profiles())} 个场景"
         left = f"  {gid}  {glyph['bullet']}  {name}"
         text = left if compact else R.two_columns(left, hint or "", inner)
-        lines.append(R.box_line(text, box_w, unicode_mode))
+        line = R.box_line(text, box_w, unicode_mode)
+        lines.append(paint_group_line(line, gid, name, hint or "",
+                                      theme, unicode_mode, compact))
     lines.append(R.box_line("", box_w, unicode_mode))
-    lines.append(R.box_line("  00  退出", box_w, unicode_mode))
+    exit_line = R.box_line("  00  退出", box_w, unicode_mode)
+    if theme is not None and theme.enabled:
+        exit_line = exit_line.replace(
+            "  00  退出", theme.paint("  00  退出", "gray"), 1)
+    lines.append(exit_line)
     lines.append(R.box_line("", box_w, unicode_mode))
     lines.append(R.plain_rule(box_w, unicode_mode))
     footer = R.two_columns("  [0] Exit   [R] Refresh   [H] Help",
-                           f"{glyph['dot']} Ready", inner)
-    lines.append(R.box_line(footer, box_w, unicode_mode))
+                           f"{glyph['dot']} Ready {glyph['mid']} 无新增依赖",
+                           inner)
+    lines.append(paint_footer_line(
+        R.box_line(footer, box_w, unicode_mode), theme, unicode_mode))
     lines.append(R.box_bottom(box_w, unicode_mode))
     return lines
 
 
 def _main_minimal(host: dict, snap: dict, width: int,
-                  unicode_mode: bool, theme=None) -> list[str]:
-    lines = ["CUS CONSOLE v" + short_version()]
-    lines += render_system(host, snap, width, unicode_mode, theme)
+                  unicode_mode: bool, theme=None, counts=None) -> list[str]:
+    lines = ["CUS Console v" + short_version()]
+    lines += paint_system_lines(
+        render_system(host, snap, width, unicode_mode, theme, counts),
+        host, snap, theme, unicode_mode, counts)
     lines.append("")
     for gid, name, _hint, _kind, _cats in GROUPS:
         lines.append(f" {gid} {name}")

@@ -162,8 +162,9 @@ def main(argv: list[str] | None = None) -> int:
             else:
                 width, _ = terminal_size()
                 theme = Theme()
+                counts = (len(profiles()), len(modules()))
                 for line in render_dashboard_page(
-                        host, snap, width, use_unicode(), theme):
+                        host, snap, width, use_unicode(), theme, counts):
                     safe_print(line)
         elif args.cmd == "install":
             return attempt(args.module, host, args.apply, args.yes)

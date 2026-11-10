@@ -167,7 +167,7 @@ class DashboardRenderTests(unittest.TestCase):
         for width in (120, 80):
             lines = render_main_screen(HOST, SNAP, width, True, theme)
             joined = "\n".join(lines)
-            self.assertIn("CUS CONSOLE", joined)
+            self.assertIn("CUS Console", joined)
             self.assertIn("v2.1", joined)
             self.assertIn("场景部署", joined)
             self.assertIn("8 个场景", joined)
@@ -178,7 +178,7 @@ class DashboardRenderTests(unittest.TestCase):
         for width in (60, 40, 30):
             joined = "\n".join(render_main_screen(HOST, SNAP, width, True,
                                                    theme))
-            self.assertIn("CUS CONSOLE", joined)
+            self.assertIn("CUS Console", joined)
             self.assertIn("v2.1", joined)
             self.assertIn("场景部署", joined)
             self.assertIn("系统管理", joined)
@@ -322,7 +322,7 @@ class CliCompatTests(unittest.TestCase):
         p = self.run_cli("dashboard")
         self.assertEqual(p.returncode, 0)
         self.assertNotIn("\x1b", p.stdout)
-        self.assertIn("CUS CONSOLE", p.stdout)
+        self.assertIn("CUS Console", p.stdout)
         self.assertIn("SYSTEM", p.stdout)
         self.assertNotIn("ss://", p.stdout)
 
