@@ -86,7 +86,7 @@ fi
 # 4. Execute immediately
 if [ "$IS_EPHEMERAL" = true ]; then
     trap 'rm -rf "${INSTALL_DIR}"' EXIT
-    python3 "${INSTALL_DIR}/cus.py" "${CUS_ARGS[@]:-}"
+    python3 "${INSTALL_DIR}/cus.py" "${CUS_ARGS[@]}"
 else
-    python3 "${INSTALL_DIR}/cus.py" "${CUS_ARGS[@]:-}"
+    python3 "${INSTALL_DIR}/cus.py" "${CUS_ARGS[@]}"
 fi
