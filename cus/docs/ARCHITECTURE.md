@@ -125,3 +125,24 @@ CommonUserScripts/
 Git：读取 status → 检测未提交修改/上游/分叉 → fetch → 只对 fast-forward 执行合并；绝不 `git reset --hard` 自动修复。自动提交/推送默认关闭。
 
 清理：展示各缓存路径与可回收量（`unknown` 就注明），只操作明确定义的缓存目录；禁止对 Home、项目、Docker volume、数据库、SSH 密钥、浏览器 Cookie、配置文件做宽泛删除。APT clean、pip cache purge、npm cache clean --force、go clean -cache、journalctl --vacuum-* 分开审查、独立执行和汇报。
+
+## 9. 终端控制台 V2.1（已实现，2026-11-10）
+
+控制台在 starter 架构上加了一层只读界面，不改变引擎与适配器：
+
+```
+[monitor.py: /proc 采样 → 统一数据结构]
+        |
+[ui/dashboard.py: SYSTEM 仪表盘数据与文本渲染]
+        |
+[ui/renderer.py + ui/layout.py: 边框/进度条/宽度/分档]
+        |
+[ui/menu.py: 循环多级菜单，导航与输入]
+        |
+[cli.py: cus / cus dashboard / 其余命令，JSON 输出不变]
+```
+
+- 采集：`src/cus/monitor.py` 单文件；CPU 用 /proc/stat 两次采样差值（与网卡共享 0.2s 窗口，idle 含 iowait，guest 不重复计）；RAM 用 MemTotal−MemAvailable；磁盘用 shutil.disk_usage("/")；网卡用 /proc/net/route 默认路由接口 + /proc/net/dev 两次采样除以真实耗时；全部 N/A 兜底；不访问网络、不读密钥、不起后台线程。
+- 界面：`src/cus/ui/`（theme / layout / renderer / dashboard / menu），纯标准库；宽度分档 ≥100 / 70–99 / 40–69 / <40；显示宽度用 unicodedata.east_asian_width()；stdout 非 TTY 或 NO_COLOR 时自动无色；CUS_ASCII=1 强制 ASCII。
+- 诚实规则：plan ≠ 已安装；planned 模块标“仅可预览计划”；--apply 的验证通过不写成“安装成功”。
+- 新增命令：`cus dashboard`、`cus dashboard --json`（纯 JSON，无装饰）；其余命令与 JSON 字段语义不变；`cus version` 现为 2.1.0。

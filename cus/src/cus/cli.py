@@ -1,26 +1,25 @@
-"""Safe starter CLI: explicit apply, no guessed success, no remote execution."""
+"""Safe starter CLI: explicit apply, no guessed success, no remote execution.
+
+Console UI lives in src/cus/ui/; resource sampling in src/cus/monitor.py.
+This module keeps the command surface and JSON output unchanged.
+"""
 from __future__ import annotations
 import argparse
 import datetime
 import json
-import os
-import shlex
-import shutil
 import subprocess
 import sys
-from pathlib import Path
-from .runtime import detect
-from .catalog import modules, profiles, status, package_command
+from . import __version__
+from .catalog import modules, plan_module, profiles, status
+from .monitor import collect
+from .runtime import detect, state_path
+from .ui.dashboard import (dashboard_data, format_plan,
+                           render_dashboard_page, render_doctor)
+from .ui.layout import terminal_size, use_unicode
+from .ui.menu import run_console
+from .ui.theme import Theme
 
-VERSION = "0.1.0-starter"
-
-
-def state_path() -> Path:
-    if sys.platform == "win32":
-        base = os.getenv("LOCALAPPDATA") or str(Path.home())
-        return Path(base) / "CommonUserScripts" / "events.jsonl"
-    base = os.getenv("XDG_STATE_HOME") or str(Path.home() / ".local" / "state")
-    return Path(base) / "commonuserscripts" / "events.jsonl"
+VERSION = __version__
 
 
 def log_event(obj: dict) -> None:
@@ -30,18 +29,6 @@ def log_event(obj: dict) -> None:
     # No args, configs, keys or sensitive environment variables are logged.
     with p.open("a", encoding="utf-8") as f:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
-
-
-def plan_module(mid: str, host: dict) -> dict:
-    catalog = modules()
-    if mid not in catalog:
-        raise ValueError(f"Unknown module: {mid}")
-    item = catalog[mid]
-    state, reason = status(item, host)
-    command = package_command(item, host)
-    return {"id": mid, "name": item["name"], "kind": item["kind"],
-            "status": state, "detail": reason, "commands": [command] if command else [],
-            "install_ready": item["kind"] == "package" and command is not None}
 
 
 def emit(value, json_mode=False):
@@ -57,11 +44,7 @@ def show_plan(plan: dict, json_mode: bool = False) -> None:
     if json_mode:
         emit(plan, True)
         return
-    print(f"[{plan['id']}] {plan['name']} | {plan['status']}: {plan['detail']}")
-    for cmd in plan["commands"]:
-        print("  planned command:", shlex.join(cmd))
-    if not plan["install_ready"]:
-        print("  not executable in this starter; see docs/ROADMAP.md")
+    print(format_plan(plan))
 
 
 def attempt(mid: str, host: dict, apply: bool, yes: bool) -> int:
@@ -113,56 +96,37 @@ def print_doctor(host: dict, json_mode: bool = False) -> None:
     if json_mode:
         emit(host, True)
         return
-    print("CommonUserScripts host diagnostics (read-only)")
-    for k, v in host.items():
-        print(f"  {k:12} : {v}")
-    print(f"  disk_free_gb : {shutil.disk_usage(Path.home()).free / 1024**3:.1f}")
-    print(f"  history      : {state_path()}")
-    if not host["manager"]:
-        print("  NOTE: no supported package adapter detected; read-only mode.")
+    for line in render_doctor(host):
+        print(line)
 
 
 def menu(host: dict) -> int:
     if not sys.stdin.isatty():
         print("The interactive menu requires a terminal; use list/plan/doctor.", file=sys.stderr)
         return 2
-    mods = modules()
-    while True:
-        print("\n=== CommonUserScripts (starter) ===")
-        for i, module in enumerate(mods.values(), 1):
-            state, _ = status(module, host)
-            print(f"{i:2d}. {module['name']:<30} [{state}]")
-        print(" D. System diagnostics | P. Scenario plans | 0. Exit")
-        raw = input("Select: ").strip().lower()
-        if raw in {"0", "q", "exit"}:
-            print("Exited without cleanup or other side effects.")
-            return 0
-        if raw == "d":
-            print_doctor(host)
-        elif raw == "p":
-            for profile in profiles().values():
-                print(f"{profile['id']:<20} {profile['name']}")
-        elif raw.isdigit() and 1 <= int(raw) <= len(mods):
-            mid = list(mods)[int(raw)-1]
-            show_plan(plan_module(mid, host))
-            print("For installation: python3 cus.py install", mid, "--apply")
-        else:
-            print("Unknown selection; please retry.")
+    return run_console(host)
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Cross-platform, safety-first script manager starter")
     parser.add_argument("--json", action="store_true", help="structured output for AI/CI")
     sub = parser.add_subparsers(dest="cmd")
-    sub.add_parser("doctor")
-    sub.add_parser("list")
+    p_doctor = sub.add_parser("doctor")
+    p_doctor.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
+    p_list = sub.add_parser("list")
+    p_list.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
     sub.add_parser("menu")
-    sub.add_parser("history")
+    p_history = sub.add_parser("history")
+    p_history.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
     sub.add_parser("version")
+    p_dash = sub.add_parser("dashboard")
+    p_dash.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
     p_show = sub.add_parser("show")
     p_show.add_argument("module")
+    p_show.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
     p_plan = sub.add_parser("plan")
     p_plan.add_argument("profile", help="profile ID")
+    p_plan.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
     p_ins = sub.add_parser("install")
     p_ins.add_argument("module")
     p_ins.add_argument("--apply", action="store_true")
@@ -190,6 +154,16 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"SCENARIO: {p['name']} (no changes)")
                 for item in result["items"]:
                     show_plan(item)
+        elif args.cmd == "dashboard":
+            snap = collect()
+            if args.json:
+                emit(dashboard_data(host, snap), True)
+            else:
+                width, _ = terminal_size()
+                theme = Theme()
+                for line in render_dashboard_page(
+                        host, snap, width, use_unicode(), theme):
+                    print(line)
         elif args.cmd == "install":
             return attempt(args.module, host, args.apply, args.yes)
         elif args.cmd == "history":

@@ -1,6 +1,6 @@
 # CommonUserScripts V2 — 跨平台脚本与环境管理中心
 
-> 交付类型：**完整规划文档 + 可运行的安全 Starter（v0.1.0）**。不要把目录里列出的所有模块当成已开发完成。
+> 交付类型：**完整规划文档 + 可运行的安全 Starter（v2.1.0，含零依赖终端控制台）**。不要把目录里列出的所有模块当成已开发完成。
 
 ## 目标
 
@@ -23,8 +23,19 @@
 - 只有用户显式 `--apply` 且确认才会安装；非交互执行还须 `--yes`。
 - 执行返回码日志，不记录密钥；对未实现的第三方脚本执行明确拒绝。
 - Python `unittest` 基本验证。
+- **终端控制台 CUS CONSOLE v2.1**：`cus` 进入循环多级菜单（场景 / 分类模块 / 详情 / 历史与设置），顶部 SYSTEM 仪表盘实时显示 OS、CPU、RAM、磁盘、网卡速率；`cus dashboard` 只读查看仪表盘，`cus dashboard --json` 输出纯 JSON。纯 Python 标准库，零第三方依赖，不启动后台进程。
 
 **未实现**：Claude/Codex/Grok/Gemini/ZCF 自动安装；Shadowsocks/CPA/Magpie 部署；Git 自动同步；清理、备份回滚；真正的系统级一键安装器；Windows 原生完整安装；Termux 安装；服务状态及 API 协议检测。这些在 docs/TASKS.md 和 docs/ROADMAP.md 里是开发任务，而非已有功能。
+
+## 终端控制台（V2.1）
+
+输入 `cus` 进入控制台（需终端；重定向输出时自动关闭颜色）：
+
+- 主界面：SYSTEM 仪表盘（CPU 用 /proc/stat 两次采样、RAM 用 MemTotal−MemAvailable、磁盘用 shutil.disk_usage("/")、网卡用默认路由接口速率，缺失显示 N/A）+ WORKSPACE 菜单（7 组：场景部署、开发环境、AI Agent · API 网关、网络服务、容器 · 自动化、系统管理 · 维护、历史记录与设置）。
+- 导航：`0`/`B` 返回、`R` 刷新、`H` 帮助、`Q` 退出、Enter 在主菜单退出、Ctrl+C 安全退出；无效输入提示后可重输。
+- 场景详情：[P] 预览计划、[D] 检测状态、[B] 返回；模块详情只显示计划与真实 CLI 安装命令，不在菜单内执行安装。
+- 布局自适应终端宽度（≥100 / 70–99 / 40–69 / <40 列四档），中文按显示宽度对齐；`CUS_ASCII=1` 强制纯 ASCII；非 TTY 时自动无色。
+- 控制台不显示、不记录任何密码、密钥、订阅链接；`--apply` 仍是唯一的安装入口，且验证通过不等于安装成功。
 
 ## 运行（不联网、不修改系统）
 
@@ -37,6 +48,8 @@ python3 cus.py list
 python3 cus.py plan ai-agent
 python3 cus.py --json plan android-builder
 python3 cus.py show net-shadowsocks
+python3 cus.py dashboard            # 只读仪表盘
+python3 cus.py dashboard --json     # 纯 JSON 仪表盘
 python3 cus.py install base-cli                 # 只看计划，不安装
 python3 cus.py menu
 ```
@@ -88,4 +101,4 @@ curl -fsSL -o cus-install.sh https://raw.githubusercontent.com/JXAB/CommonUserSc
 
 不使用 `curl|bash`、`wget|sh` 当作默认执行通道；不关闭已有 SSH；不开放所有入站端口；不打印 API Key/Cookie；不误删宿主机缓存、Docker 数据卷、Git 变更；不将“未检查”当作“成功”。
 
-版本日期：2026-11-01；此目录为规划与 starter，不是生产就绪软件。
+版本日期：2026-11-10；控制台 v2.1.0；此目录为规划与 starter，不是生产就绪软件。

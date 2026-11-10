@@ -3,7 +3,17 @@ from __future__ import annotations
 import os
 import platform
 import shutil
+import sys
 from pathlib import Path
+
+
+def state_path() -> Path:
+    """Where install events are recorded (read by doctor/history/console)."""
+    if sys.platform == "win32":
+        base = os.getenv("LOCALAPPDATA") or str(Path.home())
+        return Path(base) / "CommonUserScripts" / "events.jsonl"
+    base = os.getenv("XDG_STATE_HOME") or str(Path.home() / ".local" / "state")
+    return Path(base) / "commonuserscripts" / "events.jsonl"
 
 
 def detect() -> dict:
