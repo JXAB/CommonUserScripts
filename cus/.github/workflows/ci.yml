@@ -1,0 +1,24 @@
+name: Python Starter Checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  unittest:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.11', '3.13']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Syntax
+        run: python -m compileall -q cus.py src
+      - name: Tests
+        run: python -m unittest discover -s tests -v
+      - name: CLI smoke
+        run: python cus.py --json plan ai-agent

@@ -1,16 +1,60 @@
-# CommonUserScripts (CUS) V2
+# CommonUserScripts V2 — 跨平台脚本与环境管理中心
 
-> 跨平台的 OS-Aware 全场景环境安装、开发运维、AI 工具链与服务调度引擎。
+> 交付类型：**完整规划文档 + 可运行的安全 Starter（v0.1.0）**。不要把目录里列出的所有模块当成已开发完成。
 
-当前版本：M0 基础框架——已完成系统探测、安全拦截底座与六阶段调度引擎；各场景的真实安装逻辑随 M1~M5 逐步接入。
+## 目标
 
----
+把单机 Bash 一键脚本升级为跨平台、模块化、可扩展、可审计的系统工具箱：
 
-## ⚡ 快速一键使用
+- **One CLI, multiple adapters**：Linux/macOS/Windows 使用统一 CLI 和专用系统包管理器；Termux/WSL 单独识别。
+- **One module, one responsibility**：每个工具有 detect/plan/install/verify/upgrade/remove/backup（后五项按阶段交付）。
+- **Plan before apply**：默认只显示执行计划，不修改系统。
+- **Profiles**：VPS、Python 后端、AI Agent、Android/Flutter、网络服务、Windows、macOS、维护等方案。
+- **Evidence-oriented**：退出码、版本查询、健康检查、证据日志分离；不能以 `echo success` 作为交付。
 
-### 1. 安全一键安装（推荐）
+## 当前 Starter 实现范围
 
-在任意全新 Linux / macOS 机器上执行以下三行命令（先下载落盘、再加权限执行，全程日志写进 `cus-install.log`）：
+已实现：
+
+- 系统/发行版/架构/包管理器识别，诊断信息显示。
+- JSON 模块目录（共 50 个规划模块）和 8 个场景组合。
+- 支持查看、按场景生成计划、CLI 与简单交互菜单，包含 `0` / `q` 安全退出。
+- Debian/Ubuntu `apt`、Fedora/RHEL 系 `dnf`、Arch 系 `pacman`、macOS `brew` 的 17 个 `package` 模块本机包安装适配（完整列表见 `data/modules.json`；各模块支持的管理器不同，如 `net-frp` 仅 brew、`agent-opencode` 仅 pacman/brew）；Windows `winget` 当前仅 `git`。
+- 只有用户显式 `--apply` 且确认才会安装；非交互执行还须 `--yes`。
+- 执行返回码日志，不记录密钥；对未实现的第三方脚本执行明确拒绝。
+- Python `unittest` 基本验证。
+
+**未实现**：Claude/Codex/Grok/Gemini/ZCF 自动安装；Shadowsocks/CPA/Magpie 部署；Git 自动同步；清理、备份回滚；真正的系统级一键安装器；Windows 原生完整安装；Termux 安装；服务状态及 API 协议检测。这些在 docs/TASKS.md 和 docs/ROADMAP.md 里是开发任务，而非已有功能。
+
+## 运行（不联网、不修改系统）
+
+先将本 ZIP 解压到本地：
+
+```bash
+cd CommonUserScripts-V2
+python3 cus.py doctor
+python3 cus.py list
+python3 cus.py plan ai-agent
+python3 cus.py --json plan android-builder
+python3 cus.py show net-shadowsocks
+python3 cus.py install base-cli                 # 只看计划，不安装
+python3 cus.py menu
+```
+
+Linux/macOS 快捷入口：`bash scripts/start.sh doctor`。Windows（需已有 Python 3）：`powershell -File scripts/start.ps1 doctor`。
+
+安装 **已接入原生包管理器** 的模块：
+
+```bash
+python3 cus.py install base-cli --apply        # 交互确认后调用包管理器
+python3 cus.py install git --apply --yes      # 明确跳过交互，谨慎用于自动化
+```
+
+**提醒**：本脚本尚无自动回滚与快照；即使是 apt 安装也属于系统变更。建议首先在新建测试 VPS/VM 上验证。Windows 和 macOS 的入口仅提供代码，尚未在真实机器上测试，不应声称平台验收通过。
+
+## 一键安装
+
+从 GitHub 安装管理器到本机（先完整下载再执行，不走 `curl|bash`）：
 
 ```bash
 wget --no-check-certificate -O cus-install.sh https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh
@@ -18,136 +62,30 @@ chmod +x cus-install.sh
 ./cus-install.sh 2>&1 | tee cus-install.log
 ```
 
-没有 `wget`（如 macOS）时用 `curl` 代替第一行：
+装完自动调起管理器；命令为 `cus`（安装目录 `~/.local/share/cus`，入口 `~/.local/bin/cus`）。临时试用、不留痕迹：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh -o cus-install.sh
+./cus-install.sh --ephemeral
 ```
 
-安装后直接在任何目录输入 **`cus`** 即可调起交互菜单。
-
-安装过程说明（不搞 `curl | bash`）：
-- 先把 `install.sh` 完整下载到当前目录落盘，再执行，避免网络中断导致执行半截脚本；
-- 只把仓库里 `cus/` 子目录的内容装到用户沙盒 `~/.local/share/cus`，不碰系统目录；
-- 在 `~/.local/bin/cus` 创建软链接（需 `~/.local/bin` 在 `PATH` 中）；
-- 随后自动调起交互菜单。
-
-### 2. 即用即走模式（不驻留文件）
+没有 `wget` 的系统（macOS 默认无 wget），第一行改用 curl：
 
 ```bash
-wget --no-check-certificate -O cus-install.sh https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh
-chmod +x cus-install.sh
-./cus-install.sh --ephemeral 2>&1 | tee cus-install.log
+curl -fsSL -o cus-install.sh https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh
 ```
 
-运行在隔离临时目录中，执行完毕自动清理，不留任何文件。
+## 文档导航
 
-### 3. 从源码运行
+- [产品完整规划](docs/PRD.md)
+- [技术架构与模块协议](docs/ARCHITECTURE.md)
+- [系统安全与 Agent 边界](AGENTS.md)
+- [开发任务、验收证据](docs/TASKS.md)
+- [分期发布计划](docs/ROADMAP.md)
+- [原项目与官方安装资料](docs/SOURCES.md)
+- [交给 Codex/Claude 的主 Prompt](AI_MASTER_PROMPT.md)
 
-```bash
-git clone https://github.com/JXAB/CommonUserScripts.git
-cd CommonUserScripts/cus
-./cus.sh status
-```
+## 设计底线
 
----
+不使用 `curl|bash`、`wget|sh` 当作默认执行通道；不关闭已有 SSH；不开放所有入站端口；不打印 API Key/Cookie；不误删宿主机缓存、Docker 数据卷、Git 变更；不将“未检查”当作“成功”。
 
-## 🧰 环境要求
-
-- Python 3.8+（`python3 --version` 可查）
-- `git`（可选；没有 git 时自动改用 tarball 下载）
-- Linux（Debian/Ubuntu、Fedora/RHEL、Arch、Alpine）或 macOS；Windows 探测已覆盖，安装引导待适配
-
----
-
-## 🎯 覆盖的八大一键应用场景 (Profiles)
-
-| 场景 ID | 场景名称 | 核心能力 |
-|---|---|---|
-| `vps-init` | **云服务器安全开荒** | 时区校准、BBR加速、核心运维包、SSH安全预检 |
-| `ai-workstation` | **AI Agent 与开发工作站** | Python/uv、Node/fnm、Claude/Gemini/Codex CLI、MCP 生态 |
-| `model-api-hub` | **轻量模型 API 网关** | CLIProxyAPI / Magpie 代理、systemd 服务化、端点自检 |
-| `mobile-build` | **Android / Flutter 编译机**| JDK 17/21 矩阵、Android 命令行工具、免交互接受 Licenses、Flutter |
-| `cloud-native` | **全栈容器与微服务** | Docker CE / Podman、Docker Compose、日志限额保护 |
-| `mesh-network` | **私有互联与 Mesh 节点** | Tailscale、WireGuard、内核转发开启、防火墙自适应 |
-| `daily-ops-cleaner` | **日常巡检与安全清理** | 健康体检、包缓存/日志预估分析、无损安全清理 |
-| `git-ci-runner` | **Git 协作与 CI/CD 节点** | 全局 Git 配置规范、GitHub Actions Runner 快速部署 |
-
----
-
-## 🛠 命令行参数用法 (CLI)
-
-```bash
-# 查看系统环境与底座状态
-cus status
-cus status --json
-
-# 列出所有可用场景
-cus profile list
-
-# 预检模式执行场景（安全 dry-run，不写系统）
-cus profile run vps-init
-
-# 确认模式真实执行
-cus profile run vps-init --apply
-
-# 机器可读模式（供 CI / Agent 调用）
-cus profile run ai-workstation --apply --json
-```
-
-注意：不加 `--apply` 时一律是 dry-run 预检，只规划、不写系统；真实执行必须显式加 `--apply`。
-
----
-
-## 🔄 更新与卸载
-
-```bash
-# 更新到最新版：重新执行一键安装命令即可（覆盖程序文件）
-curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh -o /tmp/cus-install.sh && bash /tmp/cus-install.sh
-
-# 卸载
-rm -rf ~/.local/share/cus ~/.local/bin/cus
-```
-
----
-
-## 🧪 本地测试
-
-```bash
-python3 -m unittest discover -s tests/unit
-```
-
-M0 单元测试 10 项（系统探测、安全拦截、执行引擎），macOS 与 Debian 12 实测通过。
-
----
-
-## 🛡️ 安全承诺与架构标准
-
-本工具严格遵守 `AGENTS.md`：
-- **拒绝黑盒执行**：所有动作经过 `Detect -> Plan -> Approve -> Apply -> Verify -> Report` 六阶段；
-- **能力级验收**：严禁以“命令返回码 0”代表安装成功，执行真实的 `--version` 与端口端点探活；
-- **最小特权**：普通操作无需 root，按需请求提权，绝不以 root 身份盲跑整个管理器；
-- **隐私保护**：严格自动脱敏 Token、API Key 与密码。
-
-详细架构见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)，任务批次见 [docs/TASKS.md](docs/TASKS.md)，路线图见 [docs/ROADMAP.md](docs/ROADMAP.md)。
-
----
-
-## 📁 目录结构
-
-```
-cus/
-├── cus.py                  # 跨平台 Python 主入口（status / profile / TUI）
-├── cus.sh                  # POSIX Shell 引导脚本
-├── install.sh              # 安全一键安装引导器
-├── core/
-│   ├── engine.py           # 六阶段生命周期调度器（--dry-run 保护）
-│   ├── security.py         # L0~L4 权限审计、危险命令拦截、Secret 脱敏
-│   └── platform/
-│       └── os_detect.py    # 系统/架构/包管理器探测、容器与 WSL 识别
-├── data/
-│   ├── profiles.json       # 8 大一键场景编排
-│   └── modules.json        # 原子模块检测、验证与风险分级
-├── docs/                   # 架构、任务、路线图
-└── tests/unit/             # 单元测试套件
-```
+版本日期：2026-11-01；此目录为规划与 starter，不是生产就绪软件。

@@ -1,124 +1,127 @@
-# ARCHITECTURE.md — CommonUserScripts (CUS) V2 架构设计规范
+# 技术架构与模块协议（目标架构）
 
-## 1. 系统核心设计理念
-
-CUS V2 不是不可控的 `curl | bash` 脚本集合，而是一个具备**全平台状态感知、声明式模块管理、严格风险分级与闭环验收**的现代脚本与环境管理器。
+## 1. 五层分工
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                      用户界面层                             │
-│   • 交互式终端 TUI (文本菜单/状态展示)   • 自动化 CLI (--json)     │
-├─────────────────────────────────────────────────────────────┤
-│                    核心引擎 (Core Engine)                    │
-│   [Profile 编排]  ───→  [依赖解析拓扑排序]  ───→  [生命周期调度]  │
-│                                                              │
-│       ┌─────────┐   ┌──────┐   ┌─────────┐   ┌─────────┐     │
-│       │ DETECT  │──→│ PLAN │──→│ APPROVE │──→│  APPLY  │     │
-│       └─────────┘   └──────┘   └─────────┘   └─────────┘     │
-│                                                   │          │
-│                                                   ▼          │
-│                                        ┌─────────┐ ┌────────┐│
-│                                        │ VERIFY  │ │ REPORT ││
-│                                        └─────────┘ └────────┘│
-├─────────────────────────────────────────────────────────────┤
-│                     安全与事务底座                          │
-│   • 权限分级 (L0~L4)  • 变更快照备份 (Backup/Rollback)  • 审计日志│
-├─────────────────────────────────────────────────────────────┤
-│                    跨平台执行驱动 (Drivers)                  │
-│    apt / dnf / pacman / brew / winget │ systemd / launchd    │
-└─────────────────────────────────────────────────────────────┘
+[OS-native bootstrap: bash / PowerShell / Termux shell]
+              |
+[Core: Python 3 stdlib CLI/TUI + registry + settings]
+              |
+[Engine: detect > plan > lock > approve > apply > verify > report]
+              |
+[Adapters: apt / dnf / pacman / brew / winget / pkg / systemd / services]
+              |
+[Modules: dev / AI / gateway / network / git / cleanup / security / backup]
+              |
+[Profiles: minimal-vps / python-backend / ai-agent / android / proxy / ...]
 ```
 
----
+为何选择 Python 主控 + Shell/PowerShell bootstrap：大量交互、配置文件和错误处理在 Bash 中维护成本高；Python stdlib 可以复用相同模块表和 JSON；新机无 Python 时 bootstrap 用对应包管理器提供**受用户确认且版本可信**的安装流程。需要严格控制 Python 最低版本（建议 3.10+，在 CI 固定矩阵测试）。Windows 全局管理员 PowerShell 不应该成为运行前置条件。
 
-## 2. 六阶段执行管道（Execution Pipeline）
+## 2. 完整目录结构（下一阶段目标；Starter 仅创建其中一部分）
 
-每一个模块与场景动作均强制经过以下 6 个阶段：
+```
+CommonUserScripts/
+  install.sh                # Linux/macOS 安装管理器，hash/pin
+  install.ps1               # Windows 安装管理器
+  cus.py                    # 安装包内入口，后续生成统一 cus 命令
+  src/cus/
+    cli.py                  # 命令解析
+    menu.py                 # TUI 导航
+    runtime.py              # 能力发现
+    registry.py             # 模块注册与依赖拓扑
+    engine.py               # 有状态事务引擎
+    policy.py               # 权限、风险分类与执行门禁
+    storage.py              # journal、配置/快照、锁
+    fetch.py                # 带哈希校验的下载器
+    verify.py               # 版本检查/健康测试/能力探测
+    secrets.py              # OS Secret Store 接口
+    adapters/
+      apt.py dnf.py pacman.py brew.py winget.py termux.py
+      systemd.py launchd.py windows_service.py
+    modules/
+      base/ development/ android/ agents/ gateways/ network/
+      git/ containers/ maintenance/ backup/ security/
+  data/
+    modules.json            # 机读模块清单
+    profiles.json           # 场景组合
+    compatibility.json      # 发行版*架构*版本限制
+    sources.lock.json       # 固定外部源与 sha256
+  docs/ PRD.md ARCHITECTURE.md TASKS.md ROADMAP.md SOURCES.md
+  tests/unit/ tests/integration/ tests/e2e/
+  .github/workflows/ci.yml
+  AGENTS.md AI_MASTER_PROMPT.md README.md
+```
 
-1. **DETECT（状态探测）**：
-   - 检查当前操作系统（OS、版本、架构、内核）、特权状态（root / sudo / 普通用户）。
-   - 检查目标组件是否已安装、当前版本、依赖项满足情况、端口冲突。
-2. **PLAN（变更规划）**：
-   - 生成执行计划：需要下载的资源（URL/SHA256）、需要写入的路径、需要变更的系统服务。
-   - 评定风险等级（L0 ~ L4）。
-3. **APPROVE（用户审批）**：
-   - 在交互模式下输出直观变更差异并等待确认；在 CLI 模式下要求显式传入 `--apply` 参数。
-4. **APPLY（幂等执行）**：
-   - 备份旧配置文件；
-   - 按照最小特权原则执行用户级或系统级指令；
-   - 保持幂等：重复执行不导致环境被破坏或重复写入。
-5. **VERIFY（能力验收）**：
-   - 严禁以“命令返回码 0”代表安装成功；
-   - 校验：二进制文件是否存在且可执行、`--version` 准确输出、端口正常监听、核心接口探活成功。
-6. **REPORT（结果与审计）**：
-   - 输出人类友好的彩色摘要；
-   - 输出机器可解析的 JSON 结果供 CI 或上层 Agent 读取。
+## 3. 模块协议
 
----
+每个模块实现：
 
-## 3. 安全等级定义（遵循 AGENTS.md）
+| 接口 | 作用 | 必须保障 |
+|---|---|---|
+| `detect(ctx)` | 检测已安装版本/归属 | 不修改机器；未检测=unknown |
+| `plan(ctx, params)` | 输出步骤与风险 | 列出每个写入位置、端口、依赖、下载 |
+| `install(ctx)` | 安装 | 只使用 allowlisted 操作、幂等处理 |
+| `verify(ctx)` | 验收 | 真正检查命令、版本、服务与请求 |
+| `configure(ctx)` | 修改配置 | 先备份、原子写入、校验格式 |
+| `upgrade(ctx)` | 升级 | 用户可选锁定版本，保留原配置 |
+| `remove(ctx)` | 卸载 | 只移除归属本模块的资源 |
+| `rollback(ctx)` | 回滚 | 只声称能恢复实际备份的文件；系统包安装不保证完全可回滚 |
+| `logs(ctx)` | 查看日志 | 敏感值掩码、文件权限保护 |
 
-| 级别 | 定义 | 触发条件 | 行为控制 |
-|---|---|---|---|
-| **L0** | 只读诊断 | 状态查看、端口检测、空间统计 | 默认允许执行，无需提权 |
-| **L1** | 用户级安装 | 安装 `uv`、Node 工具链、修改当前用户 Profile | 无需 root，限制在用户家目录 |
-| **L2** | 系统包管理 | `apt install`、`dnf install`、配置 systemd | 显式展示所需权限，按需 sudo |
-| **L3** | 高风险系统变更 | 改写防火墙、网络端口绑定、清理旧日志 | 强制生成前置快照，二次弹窗确认 |
-| **L4** | 危险破坏性操作 | `rm -rf /`、强制重置未提交工作区、清空全盘 | **引擎层面硬编码拦截与禁止** |
-
----
-
-## 4. 模块描述规范 (Module Manifest Schema)
-
-每个可安装组件或运维操作均以 JSON 规范声明：
+模块元数据推荐 JSON：
 
 ```json
 {
-  "id": "base-python-uv",
-  "name": "Python & uv Toolchain",
-  "category": "dev_lang",
-  "risk_level": "L1",
-  "platforms": {
-    "linux": ["debian", "ubuntu", "fedora", "arch"],
-    "darwin": ["macos"],
-    "windows": ["win10", "win11"]
-  },
-  "detect": {
-    "binary": "uv",
-    "version_cmd": ["uv", "--version"],
-    "version_regex": "uv ([0-9.]+)"
-  },
-  "install": {
-    "mode": "standalone_script",
-    "url": "https://astral.sh/uv/install.sh",
-    "sha256": "...",
-    "require_sudo": false
-  },
-  "verify": {
-    "commands": [
-      { "cmd": ["uv", "--version"], "expect_code": 0 },
-      { "cmd": ["uv", "python", "list"], "expect_code": 0 }
-    ]
-  }
+  "id": "ai-codex",
+  "category": "ai-agent",
+  "source": "https://github.com/openai/codex",
+  "version_policy": "pinned",
+  "support": [{"os": "debian", "arch": "x86_64", "min": "12"}],
+  "depends_on": [],
+  "risk": "medium",
+  "scope": "user",
+  "ports": [],
+  "file_ownership": ["~/.config/<specific-owned-path>"],
+  "operations": ["detect", "plan", "install", "verify", "upgrade"],
+  "verify": {"command": ["codex", "--version"]}
 }
 ```
 
----
+备注：示例定义的是目标协议，并非 Starter 已经实现此安装器。版本策略需要兼容官方原生安装、npm、brew 等不同渠道；同一个 binary 多渠道不能混装。
 
-## 5. 场景编排规范 (Profile Specification)
+## 4. 引擎状态机
 
-场景是将一组原子模块按拓扑依赖顺序编排的一键工作流：
+`NEW -> CHECKED -> PLANNED -> AWAITING_APPROVAL -> EXECUTING -> VERIFYING -> SUCCEEDED`
 
-```json
-{
-  "id": "vps-init",
-  "name": "全新云服务器安全开荒",
-  "description": "基础网络优化、系统工具、时区校准与基础安全检查",
-  "steps": [
-    { "module_id": "sys-timezone", "required": true },
-    { "module_id": "sys-bbr", "required": false },
-    { "module_id": "base-cli-tools", "required": true },
-    { "module_id": "sec-ssh-check", "required": true }
-  ]
-}
-```
+异常分支：`BLOCKED`、`UNSUPPORTED`、`FAILED`、`CANCELLED`、`PARTIAL`。运行时状态必须是单向可追溯的事件；`FAILED` 不得被后续无关成功掩盖；不能因为进程退出 0 就断言所有目标已满足。
+
+**任务 ID**：时间戳 + 6 位随机值；**锁**：每资源域一把锁；**中断**：SIGINT/SIGTERM 对外部进程可控退出，写入 unfinished 日志，下次进入提供继续/撤销选项；不保证任意系统更新可中断或回滚。
+
+## 5. 适配层必须解决的差异
+
+- Linux：发行版 ID_LIKE、apt/dnf/pacman、systemd/OpenRC、SELinux/AppArmor、sudo/su、iptables/nftables。
+- Windows：winget、PowerShell、用户/机器 PATH、管理员 UAC、Windows 服务、计划任务、Defender 防火墙；可将 WSL 视为单独环境。
+- macOS：brew、launchd、Keychain、Apple Silicon 与 Intel 架构、系统完整性保护。
+- Termux：`pkg`、Android/Bionic、root 与非 root、proot-distro；不得自动使用 glibc 包。
+
+## 6. 数据位置与安全
+
+用户配置：Linux/mac `~/.config/commonuserscripts/`；Windows `%APPDATA%\\CommonUserScripts`。
+运行历史：Linux/mac `~/.local/state/commonuserscripts/`；Windows `%LOCALAPPDATA%\\CommonUserScripts`。
+下载缓存：平台对应缓存目录，按版本索引，允许手动清理。
+服务部署：仅在用户明确选择系统模式时写入 `/etc/...` 和 `/var/lib/...`；记录文件归属。
+密钥：优先系统秘密存储；或 `0600` 权限文件，日志必须脱敏，绝不把 Token 明文提交 Git。
+
+## 7. 安装服务与客户端两套权限模型
+
+- 普通用户模块：AI CLI、Git 配置、Python/Node 版本管理器、工作目录，原则上不升权。
+- 系统模块：Shadowsocks、Docker 服务、系统包、防火墙，按需 sudo 并单独弹确认。
+- Windows 管理员步骤仅对确实需要的服务/系统设置触发 UAC。
+- SSH/防火墙变更要求先检测当前登录链路，开放新端口，外部连通性确认后才能考虑旧端口；**自动禁用当前 SSH 端口禁止**。
+
+## 8. Git 与清理模块特殊设计
+
+Git：读取 status → 检测未提交修改/上游/分叉 → fetch → 只对 fast-forward 执行合并；绝不 `git reset --hard` 自动修复。自动提交/推送默认关闭。
+
+清理：展示各缓存路径与可回收量（`unknown` 就注明），只操作明确定义的缓存目录；禁止对 Home、项目、Docker volume、数据库、SSH 密钥、浏览器 Cookie、配置文件做宽泛删除。APT clean、pip cache purge、npm cache clean --force、go clean -cache、journalctl --vacuum-* 分开审查、独立执行和汇报。

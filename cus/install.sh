@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 # =============================================================================
-# CommonUserScripts (CUS) V2 — Safe Remote Installer & Bootstrapper
+# CommonUserScripts (CUS) V2 Starter — Safe Remote Installer & Bootstrapper
 # Complies with AGENTS.md:
 # 1. No blind pipes to bash; downloads completely before execution.
 # 2. Verifies environment, Python 3 availability and dependencies.
 # 3. Installs only the `cus/` subdirectory of the collection repo into
 #    isolated directory ~/.local/share/cus.
 # 4. Links entrypoint to ~/.local/bin/cus.
+# Starter layout: entry is cus.py at the subdirectory root, engine is the
+# src/cus/ package next to it (pure Python, no build step, no extra deps).
 # =============================================================================
 
 set -euo pipefail
@@ -38,13 +40,13 @@ echo " | |    | |  | | (___     \\ \\  / /  __) |"
 echo " | |    | |  | |\\___ \\     \\ \\/ /  |__ < "
 echo " | |____| |__| |____) |     \\  /   ___) |"
 echo "  \\_____|\\____/|_____/       \\/   |____/ "
-echo " Installing CommonUserScripts Engine..."
+echo " Installing CommonUserScripts V2 Starter..."
 echo -e "\033[0m"
 
 # 1. Check Python 3
 if ! command -v python3 >/dev/null 2>&1; then
     echo -e "\033[31m[错误] 未检测到 Python 3 运行时。\033[0m"
-    echo "CUS V2 采用声明式类型引擎，请先安装 Python 3:"
+    echo "CUS V2 Starter 为纯 Python 实现，请先安装 Python 3:"
     echo "  - Debian/Ubuntu: sudo apt update && sudo apt install -y python3 git"
     echo "  - RHEL/Fedora:   sudo dnf install -y python3 git"
     echo "  - Arch Linux:    sudo pacman -Sy python git"

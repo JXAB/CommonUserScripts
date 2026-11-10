@@ -1,101 +1,13 @@
 {
+  "schema": "cusk.profile.catalog.v1",
   "profiles": [
-    {
-      "id": "vps-init",
-      "name": "云服务器安全开荒 (Hardened VPS Initializer)",
-      "description": "系统时区校准、BBR加速、核心运维工具安装、基础安全巡检",
-      "category": "system",
-      "recommended_os": ["debian", "ubuntu", "fedora", "almalinux", "rocky", "arch"],
-      "modules": [
-        "sys-timezone",
-        "sys-bbr",
-        "base-cli-tools",
-        "sec-ssh-check"
-      ]
-    },
-    {
-      "id": "ai-workstation",
-      "name": "AI Agent 与开发工作站 (AI & Agent Workstation)",
-      "description": "Python/uv 环境、Node/fnm、Claude/Gemini/Codex CLI 与 MCP 运行支持",
-      "category": "ai",
-      "recommended_os": ["debian", "ubuntu", "arch", "macos", "wsl2"],
-      "modules": [
-        "dev-python-uv",
-        "dev-node-fnm",
-        "ai-claude-cli",
-        "ai-gemini-cli",
-        "ai-mcp-base"
-      ]
-    },
-    {
-      "id": "model-api-hub",
-      "name": "轻量模型 API 网关 (Model API Gateway)",
-      "description": "CLIProxyAPI / Magpie 协议转换代理、systemd 守护服务、端点自检探活",
-      "category": "ai",
-      "recommended_os": ["debian", "ubuntu", "fedora"],
-      "modules": [
-        "gateway-cpa",
-        "gateway-systemd-service",
-        "gateway-healthcheck"
-      ]
-    },
-    {
-      "id": "mobile-build",
-      "name": "Android / Flutter 编译机 (Mobile Build Server)",
-      "description": "JDK 17/21 矩阵、Android 命令行工具链、自动签署 Licenses、Flutter SDK",
-      "category": "development",
-      "recommended_os": ["ubuntu", "debian", "macos"],
-      "modules": [
-        "dev-jdk-matrix",
-        "mobile-android-cmdline-tools",
-        "mobile-flutter-sdk"
-      ]
-    },
-    {
-      "id": "cloud-native",
-      "name": "全栈容器与微服务环境 (Cloud Native & Docker)",
-      "description": "Docker CE / Podman 引擎、Docker Compose、日志限额配置与通用模板",
-      "category": "container",
-      "recommended_os": ["debian", "ubuntu", "fedora", "rocky"],
-      "modules": [
-        "container-docker-ce",
-        "container-compose",
-        "container-daemon-tuning"
-      ]
-    },
-    {
-      "id": "mesh-network",
-      "name": "私有互联与 Mesh 节点 (Mesh VPN & Networking)",
-      "description": "Tailscale / WireGuard 组网、内核转发开启、端口预检与防火墙穿透",
-      "category": "network",
-      "recommended_os": ["debian", "ubuntu", "fedora", "arch"],
-      "modules": [
-        "net-kernel-forward",
-        "net-tailscale",
-        "net-wireguard"
-      ]
-    },
-    {
-      "id": "daily-ops-cleaner",
-      "name": "日常巡检与安全清理 (Daily Ops & Space Reclaim)",
-      "description": "系统健康体检、包缓存/journald 日志预估分析、无损安全清理",
-      "category": "maintenance",
-      "recommended_os": ["all"],
-      "modules": [
-        "ops-system-health",
-        "ops-log-clean-analyzer"
-      ]
-    },
-    {
-      "id": "git-ci-runner",
-      "name": "Git 协作与 CI/CD 节点 (Git Automation & Runner)",
-      "description": "Git 全局规范化配置、GitHub Actions 离线 Runner 部署、代码快进同步守护",
-      "category": "devops",
-      "recommended_os": ["debian", "ubuntu", "macos", "fedora"],
-      "modules": [
-        "devops-git-config",
-        "devops-github-runner"
-      ]
-    }
+    {"id":"minimal-vps","name":"新 VPS 最小初始化","modules":["base-cli","git","python","net-firewall","diagnostics"]},
+    {"id":"backend-python","name":"Python 后端开发机","modules":["base-cli","git","python","dev-node","docker","diagnostics"]},
+    {"id":"ai-agent","name":"AI Agent 开发站","modules":["base-cli","git","python","dev-node","ai-claude","ai-codex","ai-gemini","ai-grok","ai-zcf"]},
+    {"id":"android-builder","name":"Android/Flutter 构建机","modules":["base-cli","git","dev-jdk","dev-android","diagnostics"]},
+    {"id":"proxy-host","name":"代理及 AI API 服务器","modules":["base-cli","net-shadowsocks","gateway-cpa","gateway-magpie","net-firewall","backup"]},
+    {"id":"windows-dev","name":"Windows 本地开发机","modules":["git","python","dev-node","ai-codex","ai-claude","diagnostics"]},
+    {"id":"mac-dev","name":"macOS 开发机","modules":["base-cli","git","python","dev-node","ai-codex","ai-claude","diagnostics"]},
+    {"id":"maintenance","name":"服务器安全维护","modules":["diagnostics","cleanup-cache","backup","git-sync"]}
   ]
 }

@@ -11,20 +11,20 @@
 
 | # | 目录 | 是什么 | 适用系统 |
 |---|------|--------|----------|
-| 1 | [cus](cus/) | 🚀 CommonUserScripts V2 — 跨平台 OS-Aware 环境安装与调度引擎（8 大一键场景） | Linux / macOS |
+| 1 | [cus](cus/) | 🚀 CommonUserScripts V2 — 跨平台模块化脚本管理器（50 个模块 / 8 个场景） | Linux / macOS / Windows |
 | 2 | [shadowsocks](shadowsocks/) | 🔒 Shadowsocks 全功能一键安装与管理 | Debian 9–13、Ubuntu 18.04+、CentOS/RHEL 8+ |
 
 ## 🌳 仓库结构
 
 ```
 CommonUserScripts/
-├── cus/                    # 🚀 CUS V2 跨平台调度引擎（8 大场景）
+├── cus/                    # 🚀 CUS V2 跨平台模块化脚本管理器（50 模块 / 8 场景）
 │   ├── install.sh          # 一键安装入口
-│   ├── cus.py              # 引擎入口（status / profile）
-│   ├── cus.sh              # 快捷启动包装
-│   ├── core/               # 六阶段调度引擎、安全拦截底座、系统探测
-│   ├── data/               # 场景（profiles.json）与模块（modules.json）定义
-│   ├── docs/               # 架构、路线图、任务清单
+│   ├── cus.py              # 入口（doctor / list / plan / install / menu）
+│   ├── src/cus/            # catalog / cli / runtime（引擎）
+│   ├── data/               # 模块（modules.json）与场景（profiles.json）定义
+│   ├── docs/               # 架构、PRD、路线图、任务清单
+│   ├── scripts/            # start.sh / start.ps1 启动器
 │   └── tests/              # 单元测试
 └── shadowsocks/            # 🔒 Shadowsocks 一键安装与管理
     ├── install.sh          # 一键安装 / 交互菜单
@@ -42,22 +42,24 @@ CommonUserScripts/
 
 ---
 
-## 🚀 CUS V2 — 跨平台环境安装与调度引擎
+## 🚀 CUS V2 — 跨平台模块化脚本管理器
 
-跨平台的 OS-Aware 全场景环境安装、开发运维、AI 工具链与服务调度引擎。当前版本 M0（基础框架：系统探测、安全拦截底座、六阶段调度引擎已完成；各场景的真实安装逻辑随 M1~M5 逐步接入）。
+跨平台的模块化脚本管理器（v0.1.0-starter）：50 个模块定义、8 个场景，引擎按 `detect → plan → apply → verify` 执行，默认只做计划，明确 `--apply` 才改机器。
 
-**8 大一键场景**
+**模块状态**：17 个 `package` 模块可直接安装（Debian 12 上 15 个就绪；net-frp 仅 brew、agent-opencode 仅 pacman/brew）；32 个 `planned` 模块的备注里写清了安装方法与官方来源（AI CLI、网关、服务类需对应的适配器，见 `docs/TASKS.md` M3–M5）；1 个内置 `diagnostics`。
 
-| 场景 | 说明 |
-|------|------|
-| `vps-init` | 云服务器安全开荒：时区校准、BBR 加速、核心运维工具安装、基础安全巡检 |
-| `ai-workstation` | AI Agent 与开发工作站：Python/uv 环境、Node/fnm、Claude/Gemini 等 |
-| `model-api-hub` | 轻量模型 API 网关：CLIProxyAPI / Magpie 协议转换代理、systemd 守护服务 |
-| `mobile-build` | Android / Flutter 编译机：JDK 17/21、Android 命令行工具链、自动签署 License |
-| `cloud-native` | 全栈容器与微服务环境：Docker CE / Podman 引擎、Docker Compose 等 |
-| `mesh-network` | 私有互联与 Mesh 节点：Tailscale / WireGuard 组网、内核转发、端口预检与防火墙 |
-| `daily-ops-cleaner` | 日常巡检与安全清理：系统健康体检、包缓存 / journald 日志分析、无损安全清理 |
-| `git-ci-runner` | Git 协作与 CI/CD 节点：Git 全局规范化配置、GitHub Actions 离线 Runner 部署等 |
+**8 大场景**
+
+| 场景 | 说明 | 模块 |
+|------|------|------|
+| `minimal-vps` | 新 VPS 最小初始化 | base-cli、git、python、net-firewall、diagnostics |
+| `backend-python` | Python 后端开发机 | base-cli、git、python、dev-node、docker、diagnostics |
+| `ai-agent` | AI Agent 开发站 | base-cli、git、python、dev-node、ai-claude、ai-codex、ai-gemini、ai-grok、ai-zcf |
+| `android-builder` | Android/Flutter 构建机 | base-cli、git、dev-jdk、dev-android、diagnostics |
+| `proxy-host` | 代理及 AI API 服务器 | base-cli、net-shadowsocks、gateway-cpa、gateway-magpie、net-firewall、backup |
+| `windows-dev` | Windows 本地开发机 | git、python、dev-node、ai-codex、ai-claude、diagnostics |
+| `mac-dev` | macOS 开发机 | base-cli、git、python、dev-node、ai-codex、ai-claude、diagnostics |
+| `maintenance` | 服务器安全维护 | diagnostics、cleanup-cache、backup、git-sync |
 
 **一键安装（推荐）**
 
@@ -80,12 +82,15 @@ chmod +x cus-install.sh
 **常用命令**
 
 ```bash
-cus status              # 查看引擎与环境状态
-cus profile list        # 列出 8 大场景
-cus profile run <id>    # 执行指定场景（默认演练模式，加 --apply 真执行）
+cus doctor            # 本机诊断（只读）
+cus list              # 列出 50 个模块与状态
+cus plan <profile>    # 查看场景的执行计划（不改机器）
+cus show <module>     # 查看单个模块的计划
+cus install <module> --apply    # 安装指定模块（需确认）
+cus menu              # 交互菜单
 ```
 
-完整说明、测试与安全设计见 [cus/README.md](cus/README.md)。
+完整说明、架构与任务清单见 [cus/README.md](cus/README.md)。
 
 ---
 

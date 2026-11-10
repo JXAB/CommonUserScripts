@@ -1,152 +1,864 @@
 {
+  "schema": "cusk.module.catalog.v1",
   "modules": [
     {
-      "id": "sys-timezone",
-      "name": "系统时区与 NTP 同步",
-      "category": "system",
-      "risk_level": "L2",
-      "platforms": {
-        "linux": ["all"],
-        "darwin": ["macos"]
-      },
-      "detect": {
-        "command": ["timedatectl", "show", "--property=Timezone"],
-        "fallback_file": "/etc/timezone"
-      },
-      "verify": {
-        "commands": [
-          { "cmd": ["date"], "expect_code": 0 }
+      "id": "base-cli",
+      "name": "常用命令行工具",
+      "category": "基础工具",
+      "kind": "package",
+      "requires_root": true,
+      "detect": [
+        "nano",
+        "htop",
+        "screen",
+        "tmux",
+        "git",
+        "curl",
+        "jq"
+      ],
+      "packages": {
+        "apt": [
+          "nano",
+          "htop",
+          "screen",
+          "tmux",
+          "git",
+          "curl",
+          "wget",
+          "jq",
+          "unzip",
+          "zip",
+          "rsync",
+          "tree",
+          "lsof",
+          "ca-certificates"
+        ],
+        "dnf": [
+          "nano",
+          "htop",
+          "screen",
+          "tmux",
+          "git",
+          "curl",
+          "wget",
+          "jq",
+          "unzip",
+          "zip",
+          "rsync",
+          "tree",
+          "lsof",
+          "ca-certificates"
+        ],
+        "pacman": [
+          "nano",
+          "htop",
+          "screen",
+          "tmux",
+          "git",
+          "curl",
+          "wget",
+          "jq",
+          "unzip",
+          "zip",
+          "rsync",
+          "tree",
+          "lsof",
+          "ca-certificates"
+        ],
+        "brew": [
+          "nano",
+          "htop",
+          "screen",
+          "tmux",
+          "git",
+          "curl",
+          "wget",
+          "jq",
+          "unzip",
+          "zip",
+          "rsync",
+          "tree",
+          "lsof"
         ]
-      }
+      },
+      "notes": "按 OS 套件管理器安装；不删除用户现有配置"
     },
     {
-      "id": "sys-bbr",
-      "name": "TCP BBR 拥塞控制优化",
-      "category": "system",
-      "risk_level": "L2",
-      "platforms": {
-        "linux": ["debian", "ubuntu", "fedora", "arch"]
-      },
-      "detect": {
-        "command": ["sysctl", "net.ipv4.tcp_congestion_control"]
-      },
-      "verify": {
-        "commands": [
-          { "cmd": ["sysctl", "net.ipv4.tcp_congestion_control"], "expect_output": "bbr" }
+      "id": "git",
+      "name": "Git 版本管理",
+      "category": "开发基础",
+      "kind": "package",
+      "requires_root": true,
+      "detect": [
+        "git"
+      ],
+      "packages": {
+        "apt": [
+          "git"
+        ],
+        "dnf": [
+          "git"
+        ],
+        "pacman": [
+          "git"
+        ],
+        "brew": [
+          "git"
+        ],
+        "winget": [
+          "Git.Git"
         ]
-      }
+      },
+      "notes": "只安装 Git，自动同步工作流为后续模块"
     },
     {
-      "id": "base-cli-tools",
-      "name": "核心常用运维工具包 (curl, git, htop, tmux, jq, ripgrep)",
-      "category": "system",
-      "risk_level": "L2",
-      "platforms": {
-        "linux": ["all"],
-        "darwin": ["macos"],
-        "windows": ["win10", "win11"]
-      },
-      "detect": {
-        "binaries": ["curl", "git", "tmux", "jq"]
-      },
-      "verify": {
-        "commands": [
-          { "cmd": ["git", "--version"], "expect_code": 0 },
-          { "cmd": ["curl", "--version"], "expect_code": 0 }
+      "id": "python",
+      "name": "Python 开发基础",
+      "category": "开发环境",
+      "kind": "package",
+      "requires_root": true,
+      "detect": [
+        "python3"
+      ],
+      "packages": {
+        "apt": [
+          "python3",
+          "python3-venv",
+          "python3-pip"
+        ],
+        "dnf": [
+          "python3",
+          "python3-pip"
+        ],
+        "pacman": [
+          "python",
+          "python-pip"
+        ],
+        "brew": [
+          "python"
         ]
-      }
+      },
+      "notes": "仅安装系统 Python；uv/pyenv/项目虚拟环境属于独立后续模块"
     },
     {
-      "id": "sec-ssh-check",
-      "name": "SSH 安全配置预检与加固建议",
-      "category": "security",
-      "risk_level": "L0",
-      "platforms": {
-        "linux": ["all"],
-        "darwin": ["macos"]
-      },
-      "detect": {
-        "sshd_config_path": "/etc/ssh/sshd_config"
-      },
-      "verify": {
-        "commands": [
-          { "cmd": ["sshd", "-t"], "expect_code": 0 }
+      "id": "dev-node",
+      "name": "Node.js / npm / pnpm",
+      "category": "开发环境",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "node",
+        "npm"
+      ],
+      "notes": "Node.js 不用系统包（版本旧），用 fnm（https://github.com/Schniz/fnm）或官方 NodeSource 源（https://deb.nodesource.com）安装并锁定版本；pnpm 用 corepack enable 或 npm install -g pnpm。"
+    },
+    {
+      "id": "dev-go",
+      "name": "Go 开发环境",
+      "category": "开发环境",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "go"
+      ],
+      "notes": "从官网 https://go.dev/dl 按 CPU 架构下载 tarball，校验 sha256 后解压到 /usr/local/go；Windows 用官方 msi；发行版 golang 包版本较旧，不推荐。"
+    },
+    {
+      "id": "dev-jdk",
+      "name": "JDK / Gradle",
+      "category": "移动开发",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [
+        "java",
+        "gradle"
+      ],
+      "packages": {
+        "apt": [
+          "default-jdk"
+        ],
+        "dnf": [
+          "java-17-openjdk-devel",
+          "java-21-openjdk-devel"
+        ],
+        "pacman": [
+          "jdk17-openjdk",
+          "jdk21-openjdk"
+        ],
+        "brew": [
+          "openjdk@17",
+          "openjdk@21"
         ]
-      }
+      },
+      "notes": "apt 装 default-jdk（Debian 12 对应 JDK 17、Debian 13 对应 JDK 21）；Debian 12 要 JDK 21 改用 Adoptium Temurin（temurin-21-jdk，见 packages.adoptium.net）；Gradle 不装发行版旧包，用项目 wrapper 或 sdkman；brew 的 openjdk 为 keg-only，需自行 link。"
     },
     {
-      "id": "dev-python-uv",
-      "name": "Python & uv 现代化包管理器",
-      "category": "dev_lang",
-      "risk_level": "L1",
-      "platforms": {
-        "linux": ["all"],
-        "darwin": ["macos"],
-        "windows": ["win10", "win11"]
-      },
-      "detect": {
-        "binary": "uv",
-        "version_cmd": ["uv", "--version"],
-        "version_regex": "uv ([0-9.]+)"
-      },
-      "verify": {
-        "commands": [
-          { "cmd": ["uv", "--version"], "expect_code": 0 },
-          { "cmd": ["uv", "python", "list"], "expect_code": 0 }
+      "id": "dev-android",
+      "name": "Android SDK / Flutter / adb",
+      "category": "移动开发",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "adb",
+        "flutter"
+      ],
+      "notes": "先装 JDK，再从 https://developer.android.com/studio#command-line-tools-only 下 cmdline-tools，用 sdkmanager 装 platform-tools/build-tools 与目标 API Level，并接受 SDK license；Flutter 用官网 https://docs.flutter.dev/get-started/install。"
+    },
+    {
+      "id": "ai-claude",
+      "name": "Claude Code",
+      "category": "AI Agent",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "claude"
+      ],
+      "notes": "官方原生安装器 curl -fsSL https://claude.ai/install.sh | bash（或 npm install -g @anthropic-ai/claude-code，或 brew install --cask claude-code）；首次运行需登录或配置 API Key。"
+    },
+    {
+      "id": "ai-codex",
+      "name": "Codex CLI",
+      "category": "AI Agent",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "codex"
+      ],
+      "notes": "npm install -g @openai/codex（或 brew install codex）；首次运行需登录或配置 API Key。"
+    },
+    {
+      "id": "ai-gemini",
+      "name": "Gemini CLI",
+      "category": "AI Agent",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "gemini"
+      ],
+      "notes": "npm install -g @google/gemini-cli（或 brew install gemini-cli，或 npx @google/gemini-cli）；2026 年 6 月后个人 Google 账号需 Code Assist 许可或付费 API Key 才能用。"
+    },
+    {
+      "id": "ai-grok",
+      "name": "Grok CLI",
+      "category": "AI Agent",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "grok"
+      ],
+      "notes": "官方安装器 curl -fsSL https://x.ai/cli/install.sh | bash（Grok Build，源码 https://github.com/xai-org/grok-build）；需 xAI API Key。"
+    },
+    {
+      "id": "ai-zcf",
+      "name": "ZCF 配置管理",
+      "category": "AI Agent",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "zcf"
+      ],
+      "notes": "无需全局安装：npx zcf 直接运行（需 Node.js 22+）；官网 https://zcf.ufomiao.com/，npm 包 zcf，源码 https://github.com/UfoMiao/zcf。"
+    },
+    {
+      "id": "gateway-cpa",
+      "name": "CLIProxyAPI 服务",
+      "category": "API 网关",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [],
+      "notes": "从 https://github.com/router-for-me/CLIProxyAPI/releases 下预编译包或自行编译，写 config.yaml、配端口与鉴权后以 systemd/Docker 运行；本 starter 不含服务适配器。"
+    },
+    {
+      "id": "gateway-magpie",
+      "name": "Magpie 网关",
+      "category": "API 网关",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "magpie"
+      ],
+      "notes": "go install github.com/yetone/magpie@latest，或官网安装器 curl -fsSL https://usemagpie.ai/install.sh | sh（releases 见 https://github.com/yetone/magpie-releases）；桌面版/TUI 与服务器 Docker 部署方式不同，需另行配置。"
+    },
+    {
+      "id": "net-shadowsocks",
+      "name": "Shadowsocks 服务",
+      "category": "网络服务",
+      "kind": "planned",
+      "requires_root": true,
+      "detect": [],
+      "notes": "优先 JXAB 适配器；备选 teddysun 一键脚本 https://github.com/teddysun/shadowsocks_install 或源码安装；下载到本地校验、审查后执行，禁止默认 curl|bash。"
+    },
+    {
+      "id": "net-firewall",
+      "name": "防火墙/SSH 安全变更",
+      "category": "网络服务",
+      "kind": "planned",
+      "requires_root": true,
+      "detect": [],
+      "notes": "防火墙规则与 SSH 端口变更须人工确认：先开放新端口、保留现有会话、校验新连接后再关闭旧端口；ufw/firewalld/iptables 按系统选择，不在本模块自动执行。"
+    },
+    {
+      "id": "docker",
+      "name": "Docker Engine / Compose",
+      "category": "容器",
+      "kind": "planned",
+      "requires_root": true,
+      "detect": [
+        "docker"
+      ],
+      "notes": "用 Docker 官方源安装（https://docs.docker.com/engine/install/），不要用发行版旧版 docker.io；装后把用户加入 docker 组或配 rootless，compose 插件随 docker-compose-plugin 一起装。"
+    },
+    {
+      "id": "git-sync",
+      "name": "Git 安全同步",
+      "category": "自动化",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "git"
+      ],
+      "notes": "只用 git fetch + fast-forward 合并；提交前展示 diff；默认不推送；远端与分支须人工确认。"
+    },
+    {
+      "id": "cleanup-cache",
+      "name": "缓存清理",
+      "category": "维护",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [],
+      "notes": "按 apt/npm/pip/go 分类预览缓存大小，默认不执行删除；只清包管理器缓存，不碰用户文件与项目目录。"
+    },
+    {
+      "id": "backup",
+      "name": "备份与恢复",
+      "category": "维护",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [],
+      "notes": "支持本地/远程加密备份与仅恢复本工具管理对象；备份目标、密钥与保留策略须人工配置，密钥不写日志。"
+    },
+    {
+      "id": "diagnostics",
+      "name": "综合系统诊断",
+      "category": "维护",
+      "kind": "builtin",
+      "requires_root": false,
+      "detect": [],
+      "notes": "读取系统、包管理器、权限、磁盘、可执行文件状态"
+    },
+    {
+      "id": "dev-rust",
+      "name": "Rust / Cargo",
+      "category": "开发环境",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "rustc"
+      ],
+      "notes": "官方 rustup 安装器 https://rustup.rs（curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh），再 rustup toolchain install stable；不要用发行版旧版 rustc/cargo 包。"
+    },
+    {
+      "id": "dev-php",
+      "name": "PHP / Composer",
+      "category": "开发环境",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [
+        "php"
+      ],
+      "packages": {
+        "apt": [
+          "php",
+          "php-cli",
+          "composer"
+        ],
+        "dnf": [
+          "php",
+          "php-cli",
+          "composer"
+        ],
+        "pacman": [
+          "php",
+          "composer"
+        ],
+        "brew": [
+          "php",
+          "composer"
         ]
-      }
+      },
+      "notes": "安装系统默认版本 PHP、php-cli 与 Composer；需固定 PHP 大版本时改用 sury.org（Debian/Ubuntu）或 Remi（Fedora）第三方源。"
     },
     {
-      "id": "dev-node-fnm",
-      "name": "Node.js & fnm 极速版本管理器",
-      "category": "dev_lang",
-      "risk_level": "L1",
-      "platforms": {
-        "linux": ["all"],
-        "darwin": ["macos"],
-        "windows": ["win10", "win11"]
-      },
-      "detect": {
-        "binary": "fnm",
-        "version_cmd": ["fnm", "--version"]
-      },
-      "verify": {
-        "commands": [
-          { "cmd": ["fnm", "--version"], "expect_code": 0 }
+      "id": "dev-db",
+      "name": "PostgreSQL / Redis",
+      "category": "数据库",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [
+        "psql"
+      ],
+      "packages": {
+        "apt": [
+          "postgresql",
+          "redis-server"
+        ],
+        "dnf": [
+          "postgresql-server",
+          "redis"
+        ],
+        "pacman": [
+          "postgresql",
+          "redis"
+        ],
+        "brew": [
+          "postgresql@16",
+          "redis"
         ]
-      }
+      },
+      "notes": "装 PostgreSQL 与 Redis 服务端；Fedora 需另行 postgresql-setup --initdb 初始化，服务启动、密码与远程访问配置不在本模块内。"
     },
     {
-      "id": "ops-system-health",
-      "name": "系统健康体检 (CPU, 内存, 磁盘, 僵尸进程, 端口)",
-      "category": "maintenance",
-      "risk_level": "L0",
-      "platforms": {
-        "linux": ["all"],
-        "darwin": ["macos"]
+      "id": "dev-nginx",
+      "name": "Nginx / Caddy",
+      "category": "Web 服务",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [
+        "nginx"
+      ],
+      "packages": {
+        "apt": [
+          "nginx",
+          "caddy"
+        ],
+        "dnf": [
+          "nginx",
+          "caddy"
+        ],
+        "pacman": [
+          "nginx",
+          "caddy"
+        ],
+        "brew": [
+          "nginx",
+          "caddy"
+        ]
       },
-      "detect": {
-        "type": "diagnostic"
-      },
-      "verify": {
-        "commands": []
-      }
+      "notes": "同时装 Nginx 与 Caddy；两者默认都争用 80/443，须先停用一个再启动另一个，站点与证书配置不在本模块内。"
     },
     {
-      "id": "ops-log-clean-analyzer",
-      "name": "日志与包缓存预估分析器 (安全只读预估)",
-      "category": "maintenance",
-      "risk_level": "L0",
-      "platforms": {
-        "linux": ["all"],
-        "darwin": ["macos"]
+      "id": "dev-toolchains",
+      "name": "C/C++ / build-essential",
+      "category": "开发环境",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [
+        "gcc"
+      ],
+      "packages": {
+        "apt": [
+          "build-essential",
+          "cmake",
+          "pkg-config"
+        ],
+        "dnf": [
+          "gcc",
+          "gcc-c++",
+          "make",
+          "cmake",
+          "pkg-config"
+        ],
+        "pacman": [
+          "base-devel",
+          "cmake",
+          "pkg-config"
+        ],
+        "brew": [
+          "gcc",
+          "cmake",
+          "pkg-config"
+        ]
       },
-      "detect": {
-        "type": "space_analyzer"
+      "notes": "装 C/C++ 编译基础（编译器、make、cmake、pkg-config）；macOS 需先装 Xcode Command Line Tools（xcode-select --install）以提供系统 make。"
+    },
+    {
+      "id": "dev-pm",
+      "name": "uv / pnpm / fnm",
+      "category": "开发环境",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "uv"
+      ],
+      "notes": "uv 用官方安装器 https://astral.sh/uv（curl -LsSf https://astral.sh/uv/install.sh | sh）；pnpm 用 corepack enable 或 npm install -g pnpm；fnm 见 https://github.com/Schniz/fnm。"
+    },
+    {
+      "id": "agent-opencode",
+      "name": "OpenCode",
+      "category": "AI Agent",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [
+        "opencode"
+      ],
+      "packages": {
+        "pacman": [
+          "opencode"
+        ],
+        "brew": [
+          "opencode"
+        ]
       },
-      "verify": {
-        "commands": []
-      }
+      "notes": "Arch 与 Homebrew 提供 opencode 包；其他系统用官方安装脚本 https://opencode.ai/install（或 npm install -g opencode-ai），装后配置 API Key 才能用。"
+    },
+    {
+      "id": "agent-mcp",
+      "name": "MCP / Skills / 配置同步",
+      "category": "AI Agent",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [],
+      "notes": "只改 ~/.claude、~/.codex 等配置目录，改前先备份；MCP 服务按各服务官方文档逐个接入，不自动写密钥。"
+    },
+    {
+      "id": "agent-orchestrator",
+      "name": "多 Agent 编排",
+      "category": "AI Agent",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [],
+      "notes": "多 Agent 编排需执行权限、工具限额与可观测性三件套，须人工配置；本 starter 不含编排引擎。"
+    },
+    {
+      "id": "net-wireguard",
+      "name": "WireGuard",
+      "category": "网络服务",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [
+        "wg"
+      ],
+      "packages": {
+        "apt": [
+          "wireguard",
+          "wireguard-tools"
+        ],
+        "dnf": [
+          "wireguard-tools"
+        ],
+        "pacman": [
+          "wireguard-tools"
+        ],
+        "brew": [
+          "wireguard-tools"
+        ]
+      },
+      "notes": "装 WireGuard 工具（wg/wg-quick）；密钥生成、对端配置与接口启停不在本模块内，需另行配置。"
+    },
+    {
+      "id": "net-tailscale",
+      "name": "Tailscale",
+      "category": "网络服务",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "tailscale"
+      ],
+      "notes": "用官方源安装（https://tailscale.com/download/linux），不要用 stock Debian 源（没有 tailscale 包）；装后 tailscale up 登录，登录 URL 须人工确认。"
+    },
+    {
+      "id": "net-zerotier",
+      "name": "ZeroTier",
+      "category": "网络服务",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "zerotier-cli"
+      ],
+      "notes": "官方安装 curl -s https://install.zerotier.com | sudo bash（或 https://www.zerotier.com/download/ 下对应包），再 zerotier-cli join <network-id> 加入网络。"
+    },
+    {
+      "id": "net-frp",
+      "name": "FRP / 内网穿透",
+      "category": "网络服务",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [
+        "frpc"
+      ],
+      "packages": {
+        "brew": [
+          "frp"
+        ]
+      },
+      "notes": "macOS 用 brew install frp；Linux/Windows 无原生包，从 GitHub Releases 下预编译包 https://github.com/fatedier/frp/releases（frps 服务端 + frpc 客户端），或 go install github.com/fatedier/frp@latest；token 配置不在本模块内。"
+    },
+    {
+      "id": "net-dns",
+      "name": "DNS / TLS / 证书",
+      "category": "网络服务",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [],
+      "packages": {
+        "apt": [
+          "dnsutils",
+          "certbot"
+        ],
+        "dnf": [
+          "bind-utils",
+          "certbot"
+        ],
+        "pacman": [
+          "bind",
+          "certbot"
+        ],
+        "brew": [
+          "bind",
+          "certbot"
+        ]
+      },
+      "notes": "装 dig/host/nslookup（DNS 查询）与 certbot（Let's Encrypt 证书申请）；证书签发与续期配置不在本模块内。"
+    },
+    {
+      "id": "sys-ssh",
+      "name": "SSH 安全 / SFTP",
+      "category": "系统管理",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "ssh"
+      ],
+      "notes": "SSH 端口/密钥变更须人工确认，绝不直接关闭旧端口；先加新端口、校验新连接，再改配置；SFTP 随 sshd，不另装服务。"
+    },
+    {
+      "id": "sys-user",
+      "name": "用户 / 权限 / sudo",
+      "category": "系统管理",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [],
+      "notes": "用户/权限/sudo 按最小权限策略人工配置；危险操作须确认，不自动改 root 密码或 sudoers。"
+    },
+    {
+      "id": "sys-time",
+      "name": "时区 / NTP / locale",
+      "category": "系统管理",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [],
+      "notes": "timedatectl set-timezone 改时区，systemd-timesyncd 或 chrony 同步 NTP，locale 用 locale-gen 生成；均为系统配置，无安装包。"
+    },
+    {
+      "id": "sys-swap",
+      "name": "Swap / 内存策略",
+      "category": "系统管理",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [],
+      "notes": "swapfile 用 fallocate + chmod 600 + mkswap + swapon 创建并写 /etc/fstab 持久化；容量与 swappiness 按内存定，须预检磁盘空间与文件系统。"
+    },
+    {
+      "id": "sys-monitor",
+      "name": "btop / 系统指标",
+      "category": "监控",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [
+        "btop"
+      ],
+      "packages": {
+        "apt": [
+          "btop",
+          "htop",
+          "iotop",
+          "sysstat"
+        ],
+        "dnf": [
+          "btop",
+          "htop",
+          "iotop",
+          "sysstat"
+        ],
+        "pacman": [
+          "btop",
+          "htop",
+          "iotop",
+          "sysstat"
+        ],
+        "brew": [
+          "btop",
+          "htop"
+        ]
+      },
+      "notes": "装 btop/htop（进程与系统指标）及 iotop/sysstat（I/O 与 sar，Linux only）；macOS 只装 btop/htop。"
+    },
+    {
+      "id": "sys-systemd",
+      "name": "服务 / 进程 / 定时器",
+      "category": "系统管理",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "systemctl"
+      ],
+      "notes": "systemctl 管理服务与定时器；非 systemd 系统（OpenRC/sysvinit/Termux）需替代策略，不在本模块自动执行。"
+    },
+    {
+      "id": "ops-ports",
+      "name": "端口 / 防火墙诊断",
+      "category": "监控",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [],
+      "packages": {
+        "apt": [
+          "nmap",
+          "net-tools",
+          "iproute2"
+        ],
+        "dnf": [
+          "nmap",
+          "net-tools",
+          "iproute"
+        ],
+        "pacman": [
+          "nmap",
+          "net-tools",
+          "iproute2"
+        ],
+        "brew": [
+          "nmap"
+        ]
+      },
+      "notes": "装 nmap（端口扫描）与 ss/ip/ifconfig 工具；云安全组与防火墙规则检查不在本模块内。"
+    },
+    {
+      "id": "ops-storage",
+      "name": "磁盘 / I/O / SMART",
+      "category": "监控",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [],
+      "packages": {
+        "apt": [
+          "smartmontools",
+          "sysstat",
+          "ncdu"
+        ],
+        "dnf": [
+          "smartmontools",
+          "sysstat",
+          "ncdu"
+        ],
+        "pacman": [
+          "smartmontools",
+          "sysstat",
+          "ncdu"
+        ],
+        "brew": [
+          "smartmontools",
+          "ncdu"
+        ]
+      },
+      "notes": "装 smartctl（SMART 磁盘健康）、sar（sysstat）与 ncdu（磁盘占用分析）；SMART 检测需 root 且仅对物理盘有效。"
+    },
+    {
+      "id": "ops-journal",
+      "name": "日志分析与轮转",
+      "category": "维护",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "journalctl"
+      ],
+      "notes": "journalctl 查日志，logrotate 管轮转；不清理用户日志目录，journal 大小用 SystemMaxUse 限制。"
+    },
+    {
+      "id": "ops-update",
+      "name": "系统更新管理",
+      "category": "维护",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [],
+      "notes": "apt/dnf/pacman 按系统更新，明确禁止无确认的大版本升级；更新前须有快照或回滚方案。"
+    },
+    {
+      "id": "ops-cron",
+      "name": "定时任务与通知",
+      "category": "自动化",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [],
+      "notes": "本地定时任务用 crontab 或 systemd timer，含锁与重入保护；任务命令与通知方式须人工配置。"
+    },
+    {
+      "id": "ops-mirror",
+      "name": "镜像源与下载加速",
+      "category": "系统管理",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [],
+      "notes": "镜像源按系统换源（如 Debian 换中科大/阿里源、npm/pip 换国内镜像），改前备份原配置，支持一键还原；不盲改全局源。"
+    },
+    {
+      "id": "ops-cloud",
+      "name": "AWS / 云主机助手",
+      "category": "云平台",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [],
+      "packages": {
+        "apt": [
+          "awscli"
+        ],
+        "dnf": [
+          "awscli"
+        ],
+        "pacman": [
+          "aws-cli"
+        ],
+        "brew": [
+          "awscli"
+        ]
+      },
+      "notes": "只装 AWS CLI 客户端（各源版本不同，Debian/Fedora 为 v1，Arch/Homebrew 较新；需统一 v2 用官方安装器 https://aws.amazon.com/cli/）；凭证与 region 配置不在本模块内，密钥不得写入日志。"
+    },
+    {
+      "id": "ops-backup-remote",
+      "name": "Restic / 加密远程备份",
+      "category": "维护",
+      "kind": "package",
+      "requires_root": false,
+      "detect": [
+        "restic"
+      ],
+      "packages": {
+        "apt": [
+          "restic"
+        ],
+        "dnf": [
+          "restic"
+        ],
+        "pacman": [
+          "restic"
+        ],
+        "brew": [
+          "restic"
+        ]
+      },
+      "notes": "装 Restic 加密备份客户端；仓库初始化、密钥与远程目标配置不在本模块内，密钥不得写入日志，恢复须演练。"
+    },
+    {
+      "id": "ops-docker",
+      "name": "Docker Compose 应用模板",
+      "category": "容器",
+      "kind": "planned",
+      "requires_root": false,
+      "detect": [
+        "docker"
+      ],
+      "notes": "Docker Compose 应用模板：按预设服务栈生成 compose 文件，不覆盖用户已有容器；须先装 docker 模块。"
     }
   ]
 }
