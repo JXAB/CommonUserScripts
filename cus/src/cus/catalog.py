@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from .adapters import AdapterEnv, get_adapter
+
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -21,7 +23,7 @@ def profiles() -> dict:
     return {x["id"]: x for x in load_catalog("profiles")["profiles"]}
 
 
-def status(module: dict, host: dict) -> tuple[str, str]:
+def status(module: dict, host: dict, env=None) -> tuple[str, str]:
     detect = module.get("detect", [])
     if detect:
         import shutil
@@ -32,6 +34,11 @@ def status(module: dict, host: dict) -> tuple[str, str]:
             return "partial", ",".join(found)
     if module["kind"] == "builtin":
         return "ready", "built into manager"
+    adapter = get_adapter(module["kind"])
+    if adapter is not None:
+        # Adapter kinds decide their own readiness; env may be a test
+        # fake, so only build a real one when the caller did not pass one.
+        return adapter.ready(module, host, env or AdapterEnv())
     if module["kind"] == "planned":
         return "planned", "adapter not yet implemented"
     if not host.get("manager") or host["manager"] not in module.get("packages", {}):
@@ -62,18 +69,26 @@ def package_command(module: dict, host: dict) -> list[str] | None:
     return None
 
 
-def plan_module(mid: str, host: dict) -> dict:
+def plan_module(mid: str, host: dict, env=None) -> dict:
     """One module's plan: status, detail, commands, install readiness.
 
     Kept here (not in cli.py) so the CLI and the console share one source
     of truth. A plan is never a claim that anything was installed.
+    The key set is pinned by tests; adapter step descriptions go in the
+    ``detail`` string and ``commands`` (real argv lists), never new keys.
     """
     catalog = modules()
     if mid not in catalog:
         raise ValueError(f"Unknown module: {mid}")
     item = catalog[mid]
-    state, reason = status(item, host)
+    state, reason = status(item, host, env)
     command = package_command(item, host)
+    commands: list[list[str]] = [command] if command else []
+    ready = item["kind"] == "package" and command is not None
+    adapter = get_adapter(item["kind"])
+    if adapter is not None:
+        commands = adapter.commands(item, host, env or AdapterEnv())
+        ready = state in ("available", "detected", "partial")
     return {"id": mid, "name": item["name"], "kind": item["kind"],
-            "status": state, "detail": reason, "commands": [command] if command else [],
-            "install_ready": item["kind"] == "package" and command is not None}
+            "status": state, "detail": reason, "commands": commands,
+            "install_ready": ready}

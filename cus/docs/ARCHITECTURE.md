@@ -147,3 +147,62 @@ Git：读取 status → 检测未提交修改/上游/分叉 → fetch → 只对
 - 界面：`src/cus/ui/`（theme / layout / renderer / dashboard / menu），纯标准库；宽度分档 ≥100 / 70–99 / 40–69 / <40；显示宽度用 unicodedata.east_asian_width()；stdout 非 TTY 或 NO_COLOR 时自动无色；CUS_ASCII=1 强制 ASCII。
 - 诚实规则：plan ≠ 已安装；planned 模块标“仅可预览计划”；--apply 的验证通过不写成“安装成功”。
 - 新增命令：`cus dashboard`、`cus dashboard --json`（纯 JSON，无装饰）；其余命令与 JSON 字段语义不变；`cus version` 现为 2.1.0。
+
+## 10. M1 安装适配器（已实现，2026-11-10）
+
+§3 的目标模块协议在 starter 上的第一批落地。引擎本身不重写，只加一层
+`src/cus/adapters.py`（纯标准库）：
+
+```
+data/modules.json (kind + 协议字段)
+        |
+src/cus/adapters.py: AdapterEnv / Adapter / ADAPTERS 注册表
+        |
+src/cus/catalog.py: status()/plan_module() 按 kind 分发
+        |
+src/cus/cli.py: attempt() 确认门禁后分发到 adapter.run()
+```
+
+- **AdapterEnv**：适配器接触的一切皆可注入（home、runner、which、TCP
+  connect、log），单测用假 runner/假文件系统/假网络，不动真机。
+- **Adapter 契约**：`ready(module, host, env) -> ("available" |
+  "unsupported", detail)`；`commands(module, host, env) -> argv 列表`
+  （只用于 plan 展示）；`run(module, host, env) -> (exit code, 一行摘要)`。
+  每个适配器幂等（已满足时直接 SKIPPED），安装后自己校验结果。
+- **kind（2026-11-10，50 模块）**：package 17 / planned 24 / fnm 1 /
+  npm 2 / installer 2 / npx 1 / service 1 / backup 1 / builtin 1。
+  没有适配器的 kind 永远是 planned，不许虚报可安装。
+- **plan 契约不变**：`plan_module()` 的键集合仍是
+  {id, name, kind, status, detail, commands, install_ready}；
+  `install_ready` = package 且有命令，或适配器 kind 且状态为
+  available/detected/partial；`cus version` 仍为 2.1.0；控制台与
+  dashboard 不动；JSON 字段语义不变。
+- **fnm**（dev-node）：下载 fnm 1.39.0 发布包并校验 sha256（已 pin），
+  `fnm install --lts` 装 Node LTS（最低 Node 20），shell 片段幂等追加
+  到 ~/.bashrc；失败时备选 NodeSource node_22.x apt 源（仅 apt 且需
+  root/sudo + gpg）。fnm 真实布局是
+  `node-versions/<ver>/installation/bin/node`。Node 26 官方二进制链接
+  libatomic.so.1，Debian slim 容器需先装 libatomic1，否则 node
+  无法启动（适配器会大声失败并报出底层错误）。
+- **npm**（ai-codex、ai-gemini）：`npm install -g`，用 fnm 的 Node；
+  已安装时 SKIPPED；装完跑 `--version` 校验。
+- **installer**（ai-claude、ai-grok）：先下载到本地缓存、校验已 pin 的
+  sha256，校验不符直接 BLOCKED 且绝不执行；通过后才 `bash` 运行。
+  绝不 `curl|bash` 直连管道。
+- **npx**（ai-zcf）：`npx -y zcf --version` 直跑，不全局安装。
+- **service**（net-firewall）：后端 ufw → firewalld → iptables；只在
+  plan 时查二进制是否存在，run 时按顺序：读 sshd_config 的 SSH 端口
+  → 放行 → 新 TCP 连接校验通过 → 再启用/默认拒绝 → 启用后再次校验；
+  未经验证绝不启用，SSH 不可达或无 ESTABLISHED 规则时直接拒绝。
+  IPv6 不在本次范围。
+- **backup**（backup）：restic 为底（需先装 ops-backup-remote）；
+  配置 `~/.config/commonuserscripts/backup.json`（默认值 + 用户文件合并，
+  未知键保留），密码文件 0600（自动生成，不打印），默认仓库
+  `~/.local/share/cus/backups/main`，保留 keep_daily 7 / keep_weekly 4 /
+  keep_monthly 6；生成 `run-backup.sh`（init → backup → forget+prune，
+  仓库路径本身永远排除）。
+- **校验超时**：`run_verify()` 默认 30s；npm 的 `--version` 校验用
+  120s、npx 用 300s（大 CLI 首次运行在小机器上很慢：2026-11-10 容器
+  实测 gemini --version 超过 30s，zcf 冷缓存 npx 超过 120s，热缓存
+  也要约 80s）。超时返回 "timed out after Ns"，是失败，不重试、
+  不谎报成功。

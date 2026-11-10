@@ -20,12 +20,13 @@
 - JSON 模块目录（共 50 个规划模块）和 8 个场景组合。
 - 支持查看、按场景生成计划、CLI 与简单交互菜单，包含 `0` / `q` 安全退出。
 - Debian/Ubuntu `apt`、Fedora/RHEL 系 `dnf`、Arch 系 `pacman`、macOS `brew` 的 17 个 `package` 模块本机包安装适配（完整列表见 `data/modules.json`；各模块支持的管理器不同，如 `net-frp` 仅 brew、`agent-opencode` 仅 pacman/brew）；Windows `winget` 当前仅 `git`。
+- **M1 安装适配器（2026-11-10）**：8 个模块真正可安装——`net-firewall`（ufw/firewalld/iptables，SSH 安全顺序）、`dev-node`（fnm + Node LTS，NodeSource 备选）、`ai-codex`/`ai-gemini`（npm）、`ai-claude`/`ai-grok`（官方安装器下载 + sha256 校验后执行）、`ai-zcf`（npx 直跑）、`backup`（restic 加密备份 + 保留策略）。设计见 `docs/ARCHITECTURE.md` §10；场景 `minimal-vps` 与 `ai-agent` 在 Debian 12 一次性容器里真实跑通过（154 项 unittest 全过）。
 - 只有用户显式 `--apply` 且确认才会安装；非交互执行还须 `--yes`。
 - 执行返回码日志，不记录密钥；对未实现的第三方脚本执行明确拒绝。
 - Python `unittest` 基本验证。
 - **终端控制台 CUS CONSOLE v2.1**：`cus` 进入循环多级菜单（场景 / 分类模块 / 详情 / 历史与设置），顶部 SYSTEM 仪表盘实时显示 OS、CPU、RAM、磁盘、网卡速率；`cus dashboard` 只读查看仪表盘，`cus dashboard --json` 输出纯 JSON。纯 Python 标准库，零第三方依赖，不启动后台进程。
 
-**未实现**：Claude/Codex/Grok/Gemini/ZCF 自动安装；Shadowsocks/CPA/Magpie 部署；Git 自动同步；清理、备份回滚；真正的系统级一键安装器；Windows 原生完整安装；Termux 安装；服务状态及 API 协议检测。这些在 docs/TASKS.md 和 docs/ROADMAP.md 里是开发任务，而非已有功能。
+**未实现**：Shadowsocks/CPA/Magpie 部署；Git 自动同步；清理、备份恢复演练；真正的系统级一键安装器；Windows 原生完整安装；Termux 安装；服务状态及 API 协议检测。这些在 docs/TASKS.md 和 docs/ROADMAP.md 里是开发任务，而非已有功能。
 
 ## 终端控制台（V2.1）
 

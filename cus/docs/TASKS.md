@@ -29,6 +29,8 @@
 
 **验收**：3 个已完成模块在 Debian/Ubuntu 实机安装/检测/重复执行无副作用；Windows/macOS 至少只读诊断通过；故障注入不误报成功。
 
+**M1 实际交付（2026-11-10，未勾选上面任何一项——M1 整体未完成）**：`src/cus/adapters.py` 新增 6 个适配器（fnm/npm/installer/npx/service/backup），8 个模块从 planned 变成可安装（net-firewall、dev-node、ai-codex、ai-gemini、ai-claude、ai-grok、ai-zcf、backup）；场景 minimal-vps 与 ai-agent 在 Debian 12 一次性容器里真实跑通，154 项 unittest 全过。仍缺：严格 Schema、跨 OS/架构实测、依赖拓扑、执行锁、原子写/回滚、CI。
+
 ## M2：开发环境（P0/P1）
 
 - [ ] dev-node：Node LTS 版本管理器、npm/pnpm、普通用户安装、网络/环境变量验证。

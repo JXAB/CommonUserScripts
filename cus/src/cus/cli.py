@@ -10,6 +10,7 @@ import json
 import subprocess
 import sys
 from . import __version__
+from .adapters import AdapterEnv, get_adapter
 from .catalog import modules, plan_module, profiles, status
 from .monitor import collect
 from .runtime import detect, state_path
@@ -49,7 +50,10 @@ def show_plan(plan: dict, json_mode: bool = False) -> None:
 
 
 def attempt(mid: str, host: dict, apply: bool, yes: bool) -> int:
-    p = plan_module(mid, host)
+    module = modules()[mid]
+    adapter = get_adapter(module["kind"])
+    env = AdapterEnv() if adapter is not None else None
+    p = plan_module(mid, host, env)
     show_plan(p)
     if not apply:
         print("DRY RUN: no changes were made. Add --apply to install a supported module.")
@@ -68,6 +72,27 @@ def attempt(mid: str, host: dict, apply: bool, yes: bool) -> int:
         if confirmation != f"INSTALL {mid}":
             print("Cancelled")
             return 2
+    if adapter is not None:
+        # Adapter path: same confirmation gate as packages, then dispatch.
+        # Adapters enforce their own root/sudo and refusal rules.
+        if adapter.needs_root and not (host["is_root"] or host["has_sudo"]):
+            print("BLOCKED: root/sudo required for this adapter.", file=sys.stderr)
+            return 2
+        try:
+            code, message = adapter.run(module, host, env)
+        except (OSError, KeyboardInterrupt) as e:
+            print(f"Execution failed: {type(e).__name__}", file=sys.stderr)
+            code, message = (130 if isinstance(e, KeyboardInterrupt) else 127), None
+        log_event({"event": "module_install", "module": mid, "return_code": code,
+                   "result": "command_success" if code == 0 else "command_failed"})
+        if message:
+            print(message)
+        if code == 0:
+            state, _ = status(module, host, env)
+            print("Adapter completed; post-install detection:", state)
+        else:
+            print("FAILED: see output above. No success claimed.", file=sys.stderr)
+        return code
     cmd = p["commands"][0]
     is_brew = host["manager"] == "brew"
     is_winget = host["manager"] == "winget"
