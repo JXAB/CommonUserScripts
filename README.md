@@ -4,52 +4,45 @@
 >
 > 把常用的服务器操作做成一键脚本：复制一条命令、粘贴回车就能跑，不用再翻文档拼参数。
 
-## 脚本目录
+![平台](https://img.shields.io/badge/平台-Linux%20%7C%20macOS-blue)
+![脚本](https://img.shields.io/badge/脚本-2-green)
 
-| 目录 | 是什么 | 适用系统 |
-|------|--------|----------|
-| [shadowsocks](shadowsocks/) | Shadowsocks 全功能一键安装与管理 | Debian 9–13、Ubuntu 18.04+、CentOS/RHEL 8+ |
-| [cus](cus/) | CommonUserScripts V2 — 跨平台 OS-Aware 环境安装与调度引擎（8 大一键场景） | Linux / macOS |
+## 🗂️ 脚本目录
+
+| # | 目录 | 是什么 | 适用系统 |
+|---|------|--------|----------|
+| 1 | [cus](cus/) | 🚀 CommonUserScripts V2 — 跨平台 OS-Aware 环境安装与调度引擎（8 大一键场景） | Linux / macOS |
+| 2 | [shadowsocks](shadowsocks/) | 🔒 Shadowsocks 全功能一键安装与管理 | Debian 9–13、Ubuntu 18.04+、CentOS/RHEL 8+ |
+
+## 🌳 仓库结构
+
+```
+CommonUserScripts/
+├── cus/                    # 🚀 CUS V2 跨平台调度引擎（8 大场景）
+│   ├── install.sh          # 一键安装入口
+│   ├── cus.py              # 引擎入口（status / profile）
+│   ├── cus.sh              # 快捷启动包装
+│   ├── core/               # 六阶段调度引擎、安全拦截底座、系统探测
+│   ├── data/               # 场景（profiles.json）与模块（modules.json）定义
+│   ├── docs/               # 架构、路线图、任务清单
+│   └── tests/              # 单元测试
+└── shadowsocks/            # 🔒 Shadowsocks 一键安装与管理
+    ├── install.sh          # 一键安装 / 交互菜单
+    ├── uninstall.sh        # 卸载
+    ├── reinstall.sh        # 重装（备份 → 卸载 → 安装）
+    ├── restore.sh          # 从备份恢复
+    ├── backup.sh           # 配置备份
+    ├── lib/                # BBR、防火墙、配置、仓库等模块
+    ├── configs/            # 配置模板
+    ├── docs/               # 安装方式对照、FAQ
+    └── tests/              # 测试
+```
 
 每个目录下都有独立 README，含完整使用说明。下面是各脚本的简介和一键命令，所有命令都放在代码块里，点代码块右上角的复制按钮就能整条复制。
 
 ---
 
-## Shadowsocks 一键安装与管理
-
-Shadowsocks 服务器的一键安装、管理、备份、重装、卸载全套脚本。
-
-**能做什么**
-
-- 自动判定安装方式：Debian 10–13 / Ubuntu 20.04+ 走 Teddysun 官方 apt 仓库（秒装、GPG 签名校验、可 `apt upgrade` 升级）；老系统自动回落上游一键脚本
-- 默认 `aes-256-gcm`，自动随机端口与密码；自动开 BBR、放行防火墙、开机自启
-- 装完直接输出 `ss://` 链接与终端二维码
-- 交互菜单：改密码 / 端口 / 加密方式、重启、看状态 / 日志、备份 / 恢复、一键重装、卸载
-- 每次变更前自动备份到 `/root/ss_backup`（仅保留最近 10 份）
-
-**一键安装（交互菜单）**
-
-```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/shadowsocks/install.sh)
-```
-
-**全自动静默安装**
-
-```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/shadowsocks/install.sh) install -y
-```
-
-**无 curl 时的备用命令**
-
-```bash
-wget -qO- https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/shadowsocks/install.sh | bash
-```
-
-完整功能表、安装方式对照与常见问题见 [shadowsocks/README.md](shadowsocks/README.md)。
-
----
-
-## CUS V2 — 跨平台环境安装与调度引擎
+## 🚀 CUS V2 — 跨平台环境安装与调度引擎
 
 跨平台的 OS-Aware 全场景环境安装、开发运维、AI 工具链与服务调度引擎。当前版本 M0（基础框架：系统探测、安全拦截底座、六阶段调度引擎已完成；各场景的真实安装逻辑随 M1~M5 逐步接入）。
 
@@ -89,6 +82,40 @@ cus profile run <id>    # 执行指定场景（默认演练模式，加 --apply 
 ```
 
 完整说明、测试与安全设计见 [cus/README.md](cus/README.md)。
+
+---
+
+## 🔒 Shadowsocks 一键安装与管理
+
+Shadowsocks 服务器的一键安装、管理、备份、重装、卸载全套脚本。
+
+**能做什么**
+
+- 自动判定安装方式：Debian 10–13 / Ubuntu 20.04+ 走 Teddysun 官方 apt 仓库（秒装、GPG 签名校验、可 `apt upgrade` 升级）；老系统自动回落上游一键脚本
+- 默认 `aes-256-gcm`，自动随机端口与密码；自动开 BBR、放行防火墙、开机自启
+- 装完直接输出 `ss://` 链接与终端二维码
+- 交互菜单：改密码 / 端口 / 加密方式、重启、看状态 / 日志、备份 / 恢复、一键重装、卸载
+- 每次变更前自动备份到 `/root/ss_backup`（仅保留最近 10 份）
+
+**一键安装（交互菜单）**
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/shadowsocks/install.sh)
+```
+
+**全自动静默安装**
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/shadowsocks/install.sh) install -y
+```
+
+**无 curl 时的备用命令**
+
+```bash
+wget -qO- https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/shadowsocks/install.sh | bash
+```
+
+完整功能表、安装方式对照与常见问题见 [shadowsocks/README.md](shadowsocks/README.md)。
 
 ---
 
