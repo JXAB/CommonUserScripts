@@ -276,15 +276,22 @@ def paint_system_lines(lines: list[str], host: dict, snap: dict,
         return line.replace(needle, theme.paint(needle, style), 1)
 
     def paint_bar_pct(line: str, percent) -> str:
-        """Paint one resource row's bar run and percent text."""
+        """Paint one resource row's bar run and percent text. The bar
+        is painted only when this percent's text is actually in the
+        line: the CPU row is also visited for the RAM/DISK percents
+        (minimal layout packs all three on one line), and the bar
+        regex would otherwise re-paint the CPU bar with the wrong
+        row's color on every visit."""
         style = threshold_style(percent)
         if style is None or percent is None:
+            return line
+        pct = R.percent_text(percent)
+        if pct not in line:
             return line
         m = _BAR_RE.search(line)
         if m:
             bar = m.group(0)
             line = line.replace(bar, theme.paint(bar, style), 1)
-        pct = R.percent_text(percent)
         return line.replace(pct, theme.paint(pct, style), 1)
 
     out = []

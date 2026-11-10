@@ -135,6 +135,30 @@ class MainScreenColorTests(unittest.TestCase):
         self.assertIn("\x1b[31m█████████░\x1b[0m", high)  # 90% red
         self.assertIn("\x1b[31m90%\x1b[0m", high)
 
+    def test_mixed_percent_bars_keep_own_colors(self):
+        # Regression: the CPU row is also visited for the RAM/DISK
+        # percents (minimal layout packs all three on one line). The
+        # bar regex used to re-paint the CPU bar once per visit, so
+        # a 90% CPU bar ended up wearing the DISK color.
+        snap = high_snap(90)
+        snap["memory"]["percent"] = 50.0
+        snap["memory"]["used_kb"] = 500
+        snap["disk"]["percent"] = 20.0
+        snap["disk"]["used"] = 200
+        text = self.colored(snap)
+        # CPU bar is red and painted exactly once (no nesting).
+        self.assertIn("\x1b[31m█████████░\x1b[0m", text)
+        self.assertNotIn("\x1b[31m\x1b[33m", text)
+        self.assertNotIn("\x1b[31m\x1b[32m", text)
+        self.assertNotIn("\x1b[32m█████████░", text)
+        # RAM (50%) and DISK (20%) bars stay green.
+        self.assertIn("\x1b[32m█████░░░░░\x1b[0m", text)
+        self.assertIn("\x1b[32m██░░░░░░░░\x1b[0m", text)
+        # Percents keep their own colors too.
+        self.assertIn("\x1b[31m90%\x1b[0m", text)
+        self.assertIn("\x1b[32m50%\x1b[0m", text)
+        self.assertIn("\x1b[32m20%\x1b[0m", text)
+
     def test_color_does_not_change_layout(self):
         colored = self.colored()
         plain = "\n".join(render_main_screen(
