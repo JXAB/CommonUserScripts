@@ -10,16 +10,24 @@
 
 ### 1. 安全一键安装（推荐）
 
-在任意全新 Linux / macOS 机器上执行以下单行命令：
+在任意全新 Linux / macOS 机器上执行以下三行命令（先下载落盘、再加权限执行，全程日志写进 `cus-install.log`）：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh -o /tmp/cus-install.sh && bash /tmp/cus-install.sh
+wget --no-check-certificate -O cus-install.sh https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh
+chmod +x cus-install.sh
+./cus-install.sh 2>&1 | tee cus-install.log
+```
+
+没有 `wget`（如 macOS）时用 `curl` 代替第一行：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh -o cus-install.sh
 ```
 
 安装后直接在任何目录输入 **`cus`** 即可调起交互菜单。
 
 安装过程说明（不搞 `curl | bash`）：
-- 先把 `install.sh` 完整下载到 `/tmp` 落盘，再执行，避免网络中断导致执行半截脚本；
+- 先把 `install.sh` 完整下载到当前目录落盘，再执行，避免网络中断导致执行半截脚本；
 - 只把仓库里 `cus/` 子目录的内容装到用户沙盒 `~/.local/share/cus`，不碰系统目录；
 - 在 `~/.local/bin/cus` 创建软链接（需 `~/.local/bin` 在 `PATH` 中）；
 - 随后自动调起交互菜单。
@@ -27,7 +35,9 @@ curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/ins
 ### 2. 即用即走模式（不驻留文件）
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh -o /tmp/cus-run.sh && bash /tmp/cus-run.sh --ephemeral
+wget --no-check-certificate -O cus-install.sh https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh
+chmod +x cus-install.sh
+./cus-install.sh --ephemeral 2>&1 | tee cus-install.log
 ```
 
 运行在隔离临时目录中，执行完毕自动清理，不留任何文件。

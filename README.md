@@ -62,15 +62,19 @@ CommonUserScripts/
 **一键安装（推荐）**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh -o /tmp/cus-install.sh && bash /tmp/cus-install.sh
+wget --no-check-certificate -O cus-install.sh https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh
+chmod +x cus-install.sh
+./cus-install.sh 2>&1 | tee cus-install.log
 ```
 
-安装后在任意目录输入 `cus` 即可调起交互菜单。安装过程先把 `install.sh` 完整下载到 `/tmp` 落盘再执行（不搞 `curl | bash`），只把 `cus/` 装到 `~/.local/share/cus`，不碰系统目录。
+安装后在任意目录输入 `cus` 即可调起交互菜单。安装过程先把 `install.sh` 完整下载到当前目录落盘再执行（不搞 `curl | bash`），只把 `cus/` 装到 `~/.local/share/cus`，不碰系统目录。没有 `wget`（如 macOS）时，第一行改用 `curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh -o cus-install.sh`。
 
 **即用即走（不驻留文件）**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh -o /tmp/cus-run.sh && bash /tmp/cus-run.sh --ephemeral
+wget --no-check-certificate -O cus-install.sh https://raw.githubusercontent.com/JXAB/CommonUserScripts/main/cus/install.sh
+chmod +x cus-install.sh
+./cus-install.sh --ephemeral 2>&1 | tee cus-install.log
 ```
 
 **常用命令**
