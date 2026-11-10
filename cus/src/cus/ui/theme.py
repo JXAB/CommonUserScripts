@@ -21,14 +21,28 @@ CODES = {
 }
 
 ANSI_RE = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
+# Broader ANSI pattern: also covers private/intermediate bytes such as
+# "?25l" or "1;2H", which ANSI_RE would leave behind.
+ANSI_FULL_RE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
 
 
 def strip_ansi(text: str) -> str:
     return ANSI_RE.sub("", text)
 
 
+def strip_controls(text: str) -> str:
+    """Drop ANSI escapes, then replace control characters (ord < 32
+    except space, and DEL 127) with a space. Data from files (module /
+    profile names, hostnames) must never reach the terminal raw."""
+    s = ANSI_FULL_RE.sub("", str(text))
+    return "".join(c if c == " " or (ord(c) >= 32 and ord(c) != 127)
+                   else " " for c in s)
+
+
 def color_enabled(stream=None) -> bool:
     if os.environ.get("NO_COLOR") is not None:
+        return False
+    if os.environ.get("CUS_NO_COLOR") is not None:
         return False
     if os.environ.get("TERM", "") == "dumb":
         return False

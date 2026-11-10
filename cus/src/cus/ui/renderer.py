@@ -3,7 +3,26 @@ decisions beyond the injected Theme (or None for plain text).
 """
 from __future__ import annotations
 
+import sys
+
 from .layout import display_width, pad, truncate
+from .theme import strip_controls
+
+
+def safe_print(text: str = "", stream=None) -> None:
+    """Write one line. On UnicodeEncodeError (old ASCII-only terminals),
+    fall back to 'replace' so output degrades instead of crashing."""
+    if stream is None:
+        stream = sys.stdout
+    try:
+        print(text, file=stream)
+    except UnicodeEncodeError:
+        encoding = getattr(stream, "encoding", None) or "ascii"
+        try:
+            safe = text.encode(encoding, "replace").decode(encoding, "replace")
+        except (LookupError, UnicodeError):
+            safe = text.encode("ascii", "replace").decode("ascii", "replace")
+        print(safe, file=stream)
 
 UNICODE_BOX = {"tl": "\u256d", "tr": "\u256e", "bl": "\u2570", "br": "\u256f",
                "h": "\u2500", "v": "\u2502", "lt": "\u251c", "rt": "\u2524"}
@@ -106,7 +125,11 @@ def plain_rule(width: int, unicode_mode: bool = True) -> str:
 
 
 def two_columns(left: str, right: str, total_width: int) -> str:
-    """Left text + right text on one line; right is right-aligned."""
+    """Left text + right text on one line; right is right-aligned.
+    Both sides are sanitized first (truncate/pad already sanitize the
+    left; the right side is appended raw, so it needs its own pass)."""
+    left = strip_controls(left)
+    right = strip_controls(right)
     right_w = display_width(right)
     left_w = total_width - right_w
     return pad(truncate(left, left_w), left_w) + right

@@ -143,6 +143,7 @@ Git：读取 status → 检测未提交修改/上游/分叉 → fetch → 只对
 ```
 
 - 采集：`src/cus/monitor.py` 单文件；CPU 用 /proc/stat 两次采样差值（与网卡共享 0.2s 窗口，idle 含 iowait，guest 不重复计）；RAM 用 MemTotal−MemAvailable；磁盘用 shutil.disk_usage("/")；网卡用 /proc/net/route 默认路由接口 + /proc/net/dev 两次采样除以真实耗时；全部 N/A 兜底；不访问网络、不读密钥、不起后台线程。
+- 容器说明：容器内 /proc 反映宿主机全局 CPU，内存也不等于 cgroup 配额；控制台显示的是系统值而非容器配额。
 - 界面：`src/cus/ui/`（theme / layout / renderer / dashboard / menu），纯标准库；宽度分档 ≥100 / 70–99 / 40–69 / <40；显示宽度用 unicodedata.east_asian_width()；stdout 非 TTY 或 NO_COLOR 时自动无色；CUS_ASCII=1 强制 ASCII。
 - 诚实规则：plan ≠ 已安装；planned 模块标“仅可预览计划”；--apply 的验证通过不写成“安装成功”。
 - 新增命令：`cus dashboard`、`cus dashboard --json`（纯 JSON，无装饰）；其余命令与 JSON 字段语义不变；`cus version` 现为 2.1.0。

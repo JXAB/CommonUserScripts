@@ -188,21 +188,36 @@ def render_system(host: dict, snap: dict, inner: int,
 
 
 # --------------------------------------------------------- page header -----
-def render_header(inner: int, unicode_mode: bool, theme=None) -> list[str]:
-    """[title line, subtitle line] for the console header."""
+def render_header(inner: int, unicode_mode: bool) -> list[str]:
+    """[title line, subtitle line] for the console header. Plain text:
+    callers paint the spans after boxing (see paint_header_lines), so
+    strip_controls in the layout path cannot eat our own ANSI codes."""
     g = R.glyphs(unicode_mode)
     title = "CUS CONSOLE"
     version = "v" + short_version()
-    if theme is not None:
-        title = theme.title(title)
-        version = theme.dim(version)
     title_line = R.two_columns("  " + title, version, inner)
     subtitle = (f"  CommonUserScripts {g['mid']} "
                 "Universal System Toolkit")
-    if theme is not None:
-        subtitle = theme.dim(subtitle)
     return [pad(truncate(title_line, inner), inner),
             pad(truncate(subtitle, inner), inner)]
+
+
+def paint_header_lines(lines: list[str], theme, unicode_mode: bool) -> list[str]:
+    """Paint the header spans in already-boxed lines. Runs after layout
+    (see render_header). A span that was truncated away is simply left
+    unpainted; a disabled theme is a no-op."""
+    if theme is None:
+        return lines
+    g = R.glyphs(unicode_mode)
+    subtitle = f"CommonUserScripts {g['mid']} Universal System Toolkit"
+    version = "v" + short_version()
+    out = []
+    for line in lines:
+        line = line.replace("CUS CONSOLE", theme.title("CUS CONSOLE"), 1)
+        line = line.replace(version, theme.dim(version), 1)
+        line = line.replace(subtitle, theme.dim(subtitle), 1)
+        out.append(line)
+    return out
 
 
 def render_dashboard_page(host: dict, snap: dict, width: int,
@@ -218,8 +233,9 @@ def render_dashboard_page(host: dict, snap: dict, width: int,
     box_w = max(38, min(width, 98))
     inner = box_w - 2
     lines = [R.box_top(box_w, unicode_mode)]
-    for line in render_header(inner, unicode_mode, theme):
-        lines.append(R.box_line(line, box_w, unicode_mode))
+    header = [R.box_line(line, box_w, unicode_mode)
+              for line in render_header(inner, unicode_mode)]
+    lines += paint_header_lines(header, theme, unicode_mode)
     lines.append(R.section_rule(box_w, "SYSTEM", unicode_mode, theme))
     for row in render_system(host, snap, inner, unicode_mode, theme):
         lines.append(R.box_line(row, box_w, unicode_mode))

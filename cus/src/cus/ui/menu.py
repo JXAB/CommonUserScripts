@@ -11,8 +11,8 @@ import sys
 from ..catalog import modules, plan_module, profiles, status
 from ..runtime import state_path
 from . import renderer as R
-from .dashboard import (format_plan, render_doctor, render_header,
-                        render_system, short_version)
+from .dashboard import (format_plan, paint_header_lines, render_doctor,
+                        render_header, render_system, short_version)
 from .layout import display_width, pad, tier, terminal_size, truncate
 from .layout import use_unicode
 from ..monitor import collect
@@ -64,8 +64,9 @@ def render_main_screen(host: dict, snap: dict, width: int,
     box_w = max(38, min(width, 98))
     inner = box_w - 2
     lines = [R.box_top(box_w, unicode_mode)]
-    for line in render_header(inner, unicode_mode, theme):
-        lines.append(R.box_line(line, box_w, unicode_mode))
+    header = [R.box_line(line, box_w, unicode_mode)
+              for line in render_header(inner, unicode_mode)]
+    lines += paint_header_lines(header, theme, unicode_mode)
     lines.append(R.section_rule(box_w, "SYSTEM", unicode_mode, theme))
     for row in render_system(host, snap, inner, unicode_mode, theme):
         lines.append(R.box_line(row, box_w, unicode_mode))
@@ -131,7 +132,9 @@ class Console:
 
     # ------------------------------------------------------------ basics ---
     def emit(self, text: str = "") -> None:
-        print(text, file=self.out)
+        # Safe print: an old ASCII-only terminal degrades (replace)
+        # instead of crashing on UnicodeEncodeError.
+        R.safe_print(text, stream=self.out)
 
     def refresh(self) -> None:
         self.snap = collect(interval=self.interval)
@@ -155,16 +158,20 @@ class Console:
         """Wrap body lines in a box with a title header row."""
         box_w = self.box_width()
         inner = box_w - 2
-        title_text = "  " + title
-        if self.theme is not None:
-            title_text = self.theme.heading(title_text)
+        plain_title = "  " + title
         lines = [R.box_top(box_w, self.unicode_mode),
-                 R.box_line(pad(truncate(title_text, inner), inner),
+                 R.box_line(pad(truncate(plain_title, inner), inner),
                             box_w, self.unicode_mode),
                  R.plain_rule(box_w, self.unicode_mode)]
         for row in body:
             lines.append(R.box_line(row, box_w, self.unicode_mode))
         lines.append(R.box_bottom(box_w, self.unicode_mode))
+        if self.theme is not None:
+            # Paint after boxing: strip_controls in truncate()/pad()
+            # would otherwise eat our own ANSI codes. No-op when the
+            # title was truncated away.
+            lines[1] = lines[1].replace(
+                plain_title, self.theme.heading(plain_title), 1)
         return lines
 
     def _show_boxed(self, title: str, body: list[str]) -> None:

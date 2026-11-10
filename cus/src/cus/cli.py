@@ -17,6 +17,7 @@ from .ui.dashboard import (dashboard_data, format_plan,
                            render_dashboard_page, render_doctor)
 from .ui.layout import terminal_size, use_unicode
 from .ui.menu import run_console
+from .ui.renderer import safe_print
 from .ui.theme import Theme
 
 VERSION = __version__
@@ -163,7 +164,7 @@ def main(argv: list[str] | None = None) -> int:
                 theme = Theme()
                 for line in render_dashboard_page(
                         host, snap, width, use_unicode(), theme):
-                    print(line)
+                    safe_print(line)
         elif args.cmd == "install":
             return attempt(args.module, host, args.apply, args.yes)
         elif args.cmd == "history":

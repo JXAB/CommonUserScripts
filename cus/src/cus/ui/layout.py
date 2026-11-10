@@ -10,13 +10,15 @@ import shutil
 import sys
 import unicodedata
 
-from .theme import strip_ansi
+from .theme import strip_controls
 
 
 def display_width(text: str) -> int:
-    """Visible columns: East Asian W/F count 2, combining marks 0."""
+    """Visible columns: East Asian W/F count 2, combining marks 0.
+    ANSI escapes and control characters are stripped before measuring,
+    so injected sequences can never inflate or break the layout."""
     width = 0
-    for ch in strip_ansi(text):
+    for ch in strip_controls(text):
         if unicodedata.combining(ch):
             continue
         width += 2 if unicodedata.east_asian_width(ch) in ("W", "F") else 1
@@ -24,11 +26,15 @@ def display_width(text: str) -> int:
 
 
 def pad(text: str, width: int) -> str:
+    text = strip_controls(text)
     return text + " " * max(0, width - display_width(text))
 
 
 def truncate(text: str, width: int, ellipsis: str = "\u2026") -> str:
-    """Cut text to at most `width` visible columns, keeping whole glyphs."""
+    """Cut text to at most `width` visible columns, keeping whole glyphs.
+    Input is sanitized first: no ANSI escape or control character
+    survives into the terminal."""
+    text = strip_controls(text)
     if display_width(text) <= width:
         return text
     budget = width - display_width(ellipsis)
